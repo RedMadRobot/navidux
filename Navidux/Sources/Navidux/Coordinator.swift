@@ -7,11 +7,4 @@ import UIKit
 public protocol Coordinator: AnyObject {
     func actionReducer(action: Navigation.Action)
     func start()
-
-    init(
-        _ controller: NavigationController,
-        screenFactory: ScreenFactory,
-        alertFactory: AlertFactory,
-        state: NavigationStore
-    )
 }
