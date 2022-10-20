@@ -1,21 +1,18 @@
 public final class NavigationCoordinator: Coordinator {
     var navigationController: NavigationController
-    var screenFactory: ScreenFactory
-    var alertFactory: AlertFactory
+    var screenAssembler: ScreenAssembler
     public var state: NavigationStore
-    
-    public required init(
+
+    public init(
         _ controller: NavigationController,
-        screenFactory: ScreenFactory,
-        alertFactory: AlertFactory = AlertFactory(),
+        screenAssembler: some ScreenAssembler,
         state: NavigationStore = NavigationStore()
     ) {
         navigationController = controller
-        self.screenFactory = screenFactory
-        self.alertFactory = alertFactory
+        self.screenAssembler = screenAssembler
         self.state = state
     }
-    
+
     public func start() {
         actionReducer(action: .start(ScreenConfig(navigationTitle: "Start Screen", isNeedSetBackButton: false)))
     }

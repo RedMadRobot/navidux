@@ -2,7 +2,7 @@ extension NavigationCoordinator {
     public func actionReducer(action: Navigation.Action) {
         switch action {
         case let .start(config):
-            let controller = assemblyScreen(
+            let controller = screenAssembler.assemblyScreen(
                 screenType: .firstScreen,
                 config: config
             )
@@ -10,7 +10,7 @@ extension NavigationCoordinator {
             
         case let .push(screen, config, presentationStyle):
             var controller: any NavigationScreen
-            controller = assemblyScreen(screenType: screen, config: config)
+            controller = screenAssembler.assemblyScreen(screenType: screen, config: config)
             pushNew(screen: controller, style: presentationStyle, animated: true)
             
         case let .pop(payload):
@@ -30,12 +30,12 @@ extension NavigationCoordinator {
             
         case let .restruct(screens):
             let controllers: [any NavigationScreen] = screens.map {
-                assemblyScreen(screenType: $0.0, config: $0.1)
+                screenAssembler.assemblyScreen(screenType: $0.0, config: $0.1)
             }
             restruct(with: controllers, animated: true)
             
         case let .showAlert(configuration):
-            let assembledAlert = alertFactory.createAlert(configuration: configuration)
+            let assembledAlert = screenAssembler.assemblyAlert(configuration: configuration)
             showAlert(alert: assembledAlert)
         }
     }

@@ -6,7 +6,7 @@ open class ViewController: UIViewController, NavigationScreen, DismissCheckable,
     public var navigationCallback: (() -> Void)? = nil
     public var navigation: (any Coordinator)?
     public var onBackCallback: () -> Void
-    public func gotUpdatedData(_ payload: NullablePayload) {}
+    open func gotUpdatedData(_ payload: NullablePayload) {}
     @objc func onBack() {
         onBackCallback()
     }
