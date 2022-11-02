@@ -40,8 +40,6 @@ extension NavigationCoordinator {
         }
     }
     
-    //TODO: Переписать этот момент, так как он будет работать неверно,
-    // если мы будем передавать asScreenClass одинаковые
     private func findCertain(
         controller: Navigation.Screen,
         in stack: [any NavigationScreen]

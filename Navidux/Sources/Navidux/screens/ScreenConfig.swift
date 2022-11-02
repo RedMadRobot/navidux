@@ -1,5 +1,4 @@
 public struct ScreenConfig: Equatable {
-    //TODO: Рассмотреть вариант, что navigationTitle может быть Custom View
     let navigationTitle: String
     var isNeedSetBackButton: Bool
     

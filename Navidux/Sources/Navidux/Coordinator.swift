@@ -4,10 +4,10 @@ import UIKit
 /// Work on states with associated values.
 /// - Note use **actionReducer(action:)** function with some action to change state of navigation stack. It's trigger inner function to change navigation screen.
 /// - Note use **start()** function to trigger first default screen or **actionReducer(action:)** with **restruct** action to set up inital navigation stack state.
-public protocol Coordinator: AnyObject {    
+public protocol Coordinator: AnyObject {
     func actionReducer(action: Navigation.Action)
     func start()
-    
+
     init(
         _ controller: NavigationController,
         screenFactory: ScreenFactory,

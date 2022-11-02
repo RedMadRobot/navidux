@@ -2,8 +2,8 @@ import SwiftUI
 import UIKit
 
 final class HostingController<ViewContent: View>: UIHostingController<ViewContent>,
-                                                    DismissCheckable,
-                                                    UIGestureRecognizerDelegate {
+                                                  DismissCheckable,
+                                                  UIGestureRecognizerDelegate {
     var tag: String
     var isModal: Bool = false
     var isNeedBackButton: Bool

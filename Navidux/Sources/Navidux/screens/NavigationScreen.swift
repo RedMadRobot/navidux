@@ -1,18 +1,16 @@
 import UIKit
 
 /// Main element of Navigation on Redux (Navidux). Uses for store/move screens in navigation stack.
-/// 
-/// - parameters:
-/// - **tag**: The unique tag of the screen. Use for search in nav stack. Can be set on screen setup.
-/// - **isModal**: property indicates that screen will be present as modal or not. Edited only from NavigationRouter.
-/// - **navigationCallback**: used for additional checking in navigation core and support consistency of the navigation state. Edited only from NavigationRouter.
-/// - **onBackCallback**: function that fired then user use back button or swipe. Can be set on screen setup.
-/// - **gotUpdatedData**: function that fired on then upper screen remove from nav stack and current screen become topScreen. Can be overrided.
 public protocol NavigationScreen: UIViewController, AnyObject where Self: Equatable {
+    /// - **tag**: The unique tag of the screen. Use for search in nav stack. Can be set on screen setup.
     var tag: String { get set }
+    /// - **isModal**: property indicates that screen will be present as modal or not. Edited only from NavigationRouter.
     var isModal: Bool { get set }
+    /// - **navigationCallback**: used for additional checking in navigation core and support consistency of the navigation state. Edited only from NavigationRouter.
     var navigationCallback: (() -> Void)? { get set }
+    /// - **onBackCallback**: function that fired then user use back button or swipe. Can be set on screen setup.
     var onBackCallback: () -> Void { get set }
+    /// - **gotUpdatedData**: function that fired on then upper screen remove from nav stack and current screen become topScreen. Can be overrided.
     func gotUpdatedData(_ payload: NullablePayload)
 }
 

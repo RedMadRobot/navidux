@@ -24,7 +24,6 @@ public enum Navigation: Equatable {
     }
     
     public enum BottomSheetSize {
-        //TODO: Flexible bottom sheet на подумать
         case fixed(CGFloat)
         case halfScreen
         case fullScreen

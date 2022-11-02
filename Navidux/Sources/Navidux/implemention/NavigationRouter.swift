@@ -15,7 +15,6 @@ extension NavigationCoordinator {
             }
             state.hasOverlay = true
             navigationController.present(screen, animated: animated, completion: nil)
-        // TODO: [JBNFS-26] Подготовить контейнер с боттом щитом
         case let .bottomSheet(sizes):
             screen.isModal = true
             let sheetController = screen
@@ -24,7 +23,6 @@ extension NavigationCoordinator {
             }
             state.hasOverlay = true
             navigationController.present(sheetController, animated: false, completion: nil)
-        // TODO: [JBNFS-47] Добавить кастомный режим показа экрана
         case let .custom(delegate):
             break
         }
@@ -63,7 +61,6 @@ extension NavigationCoordinator {
         navigationController.removeTillFromStack(screen: screen)
     }
     
-    // TODO: [JBNFS-48] Доработать, чтобы можно было брать старые экраны из созданных, а не создавать с нуля
     func restruct(with screens: [any NavigationScreen], animated: Bool) {
         if navigationController.topViewController == screens.last {
             // Если верхний экран равен верхнему экрану из нового стэка, то просто переставляем все экраны
@@ -101,7 +98,6 @@ extension NavigationCoordinator {
         return result
     }
     
-    // Колбэк, который вызывается с верхнего экрана-модалки, который закрыли (и программно и жестом)
     private func modalControllerDismissed(screenTag: String?) {
         guard let screenTag = screenTag else { return }
         
@@ -116,7 +112,6 @@ extension NavigationCoordinator {
         state.isAlertShow = false
     }
     
-    // Колбэк, который вызывается с верхнего экрана, который закрыли (и программно и жестом)
     private func controllerDismissed(screenTag: String?) {
         guard let screenTag = screenTag else { return }
         
