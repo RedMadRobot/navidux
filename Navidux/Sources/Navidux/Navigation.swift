@@ -2,27 +2,19 @@ import UIKit
 import SwiftUI
 
 public enum Navigation: Equatable {
-    public enum Screen: Equatable {
-        case firstScreen
-        case secondScreen
-        
-        var asScreenClass: UIViewController.Type {
-            switch self {
-            case .firstScreen:
-                return UIViewController.self
-            case .secondScreen:
-                return UIViewController.self
-            }
-        }
-    }
-    
+    /// PresentationStyle uses to choose correct form of pushing your screen.
+    /// - Note:
+    /// + fullscren - its normal presentation like `UINavigationController.push(...)` without additional settings.
+    /// + model - its modal presentation like `UINavigationController.present(...)` without additional settings.
+    /// + bottomSheet - its modal presentation of the screen from bottom part with simple animation.
+    /// + custom - its fully customisable animation for `UINavigationController.push(...)` with your own parameters. *WORK IN PROGRESS*
     public enum PresentationStyle {
         case fullscreen
         case modal
         case bottomSheet([BottomSheetSize])
         case custom(UIViewControllerTransitioningDelegate)
     }
-    
+
     public enum BottomSheetSize {
         case fixed(CGFloat)
         case halfScreen
@@ -30,11 +22,10 @@ public enum Navigation: Equatable {
     }
 
     public enum Action {
-        case start(ScreenConfig)
-        case push(Screen, ScreenConfig, PresentationStyle)
+        case push(NaviduxScreen, ScreenConfig, PresentationStyle)
         case pop(NullablePayload)
-        case popUntil(Screen, NullablePayload)
-        case restruct([(Screen, ScreenConfig)])
+        case popUntil(NaviduxScreen, NullablePayload)
+        case restruct([(NaviduxScreen, ScreenConfig)])
         case showAlert(AlertConfiguration)
     }
 }

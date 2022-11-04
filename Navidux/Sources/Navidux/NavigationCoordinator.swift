@@ -12,8 +12,4 @@ public final class NavigationCoordinator: Coordinator {
         self.screenAssembler = screenAssembler
         self.state = state
     }
-
-    public func start() {
-        actionReducer(action: .start(ScreenConfig(navigationTitle: "Start Screen", isNeedSetBackButton: false)))
-    }
 }

@@ -1,13 +1,6 @@
 extension NavigationCoordinator {
     public func actionReducer(action: Navigation.Action) {
         switch action {
-        case let .start(config):
-            let controller = screenAssembler.assemblyScreen(
-                screenType: .firstScreen,
-                config: config
-            )
-            pushNew(screen: controller, style: .fullscreen, animated: false)
-            
         case let .push(screen, config, presentationStyle):
             var controller: any NavigationScreen
             controller = screenAssembler.assemblyScreen(screenType: screen, config: config)
@@ -41,7 +34,7 @@ extension NavigationCoordinator {
     }
     
     private func findCertain(
-        controller: Navigation.Screen,
+        controller: NaviduxScreen,
         in stack: [any NavigationScreen]
     ) -> (any NavigationScreen)? {
         return stack.last(where: { [controller] in

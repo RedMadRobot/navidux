@@ -1,7 +1,7 @@
 @testable import Navidux
 
 enum ScreenAssemblerStubAction: Equatable {
-    case assembleScreen(Navidux.Navigation.Screen)
+    case assembleScreen(Navidux.NaviduxScreen)
     case assembleAlert(Navidux.AlertConfiguration)
 }
 
@@ -18,7 +18,7 @@ final class ScreenAssemblerStub: ScreenAssembler {
     }
 
     func assemblyScreen(
-        screenType: Navidux.Navigation.Screen,
+        screenType: Navidux.NaviduxScreen,
         config: Navidux.ScreenConfig
     ) -> any Navidux.NavigationScreen {
         screenToPush ?? NaviduxFixture.mockNavigationScreen(coordinator: navigation, tag: vcTag ?? "")

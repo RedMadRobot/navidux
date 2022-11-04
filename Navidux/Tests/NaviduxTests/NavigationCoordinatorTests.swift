@@ -13,21 +13,7 @@ final class NavigationCoordinatorTests: XCTestCase {
         navigationController,
         screenAssembler: screenAssembler
     )
-    
-    func test_start_pushDefaultScreen() {
-        screenAssembler.navigation = navigationCoordinator
 
-        navigationCoordinator.start()
-        
-        XCTAssertEqual(
-            navigationController.callingStack,
-            [
-                .pushViewController(tag: NaviduxFixture.oneScreenTag),
-                .addToStack(tag: NaviduxFixture.oneScreenTag)
-            ]
-        )
-    }
-    
     func test_pushFullscreen_addCallForPush() {
         screenAssembler.navigation = navigationCoordinator
 

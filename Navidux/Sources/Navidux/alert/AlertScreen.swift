@@ -2,11 +2,11 @@ import UIKit
 
 public final class AlertScreen {
     let configuration: AlertConfiguration
-    
-    init(configuration: AlertConfiguration) {
+
+    public init(configuration: AlertConfiguration) {
         self.configuration = configuration
     }
-    
+
     func generateAlert(dismissedCallback: @escaping () -> Void) -> UIAlertController {
         let alert = UIAlertController(
             title: configuration.title,
