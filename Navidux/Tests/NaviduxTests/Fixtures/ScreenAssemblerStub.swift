@@ -1,10 +1,3 @@
-//
-//  ScreenAssemblerStub.swift
-//  
-//
-//  Created by Александр Евсеев on 20.10.2022.
-//
-
 @testable import Navidux
 
 enum ScreenAssemblerStubAction: Equatable {

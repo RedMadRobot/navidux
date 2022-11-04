@@ -1,10 +1,3 @@
-//
-//  NavigationCoordinatorProxy.swift
-//  
-//
-//  Created by Александр Евсеев on 20.10.2022.
-//
-
 public final class NavigationCoordinatorProxy: Coordinator {
     public var subject: Coordinator!
 
