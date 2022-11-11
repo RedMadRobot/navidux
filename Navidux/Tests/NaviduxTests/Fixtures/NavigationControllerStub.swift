@@ -23,6 +23,7 @@ final class NavigationControllerStub: NavigationController {
     var topViewController: UIViewController? {
         screens.last
     }
+
     var viewControllers: [UIViewController] = []
 
     func addToStack(screen: any NavigationScreen) {

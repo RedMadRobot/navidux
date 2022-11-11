@@ -1,6 +1,6 @@
 import UIKit
 
-final class AlertScreen {
+public final class AlertScreen {
     let configuration: AlertConfiguration
     
     init(configuration: AlertConfiguration) {
