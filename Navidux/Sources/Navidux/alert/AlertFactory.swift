@@ -1,7 +1,7 @@
 import UIKit
 
 public protocol AlertFactory {
-    func createAlert(configuration : AlertConfiguration) -> AlertScreen
+    func createAlert(configuration: AlertConfiguration) -> AlertScreen
 }
 
 public final class AlertFactoryImpl: AlertFactory {

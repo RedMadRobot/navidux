@@ -5,7 +5,7 @@ public enum Navigation: Equatable {
     /// PresentationStyle uses to choose correct form of pushing your screen.
     /// - Note:
     /// + fullscren - its normal presentation like `UINavigationController.push(...)` without additional settings.
-    /// + model - its modal presentation like `UINavigationController.present(...)` without additional settings.
+    /// + modal - its modal presentation like `UINavigationController.present(...)` without additional settings.
     /// + bottomSheet - its modal presentation of the screen from bottom part with simple animation.
     /// + custom - its fully customisable animation for `UINavigationController.push(...)` with your own parameters. *WORK IN PROGRESS*
     public enum PresentationStyle {
