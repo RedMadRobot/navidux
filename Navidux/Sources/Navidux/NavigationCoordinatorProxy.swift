@@ -1,6 +1,6 @@
 ///Proxy give possibility to create `ScreenAssembler` that nessasary for `NavigationCoordinator`.
 ///Usage: after declaration `NavigationCoordinatorProxy` you can create `ScreenAssembler`.
-///Next step to create real `Coordinator`. And last stage is set subject property as real `Coordinator`.
+///Next step to create real `Router`. And last stage is set subject property as real `Router`.
 /// - Example:
 ///``` swift
 ///let navigationController = NavigationControllerImpl()
@@ -19,14 +19,14 @@
 ///)
 ///navigationCoordinatorProxy.subject = navigationCoordinator
 ///```
-public final class NavigationCoordinatorProxy: Coordinator {
-    public var subject: Coordinator!
+public final class NavigationCoordinatorProxy: Router {
+    public var subject: Router!
 
-    public init(subject: Coordinator? = nil) {
+    public init(subject: Router? = nil) {
         self.subject = subject
     }
 
-    public func actionReducer(action: Navigation.Action) {
-        subject.actionReducer(action: action)
+    public func route(with action: Navigation.Action) {
+        subject.route(with: action)
     }
 }

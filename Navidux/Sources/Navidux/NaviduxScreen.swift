@@ -5,7 +5,6 @@ import UIKit
 /// ``` swift
 /// extension NaviduxScreen {
 ///     static let newScreen = NaviduxScreen(
-///         description: "someDescription",
 ///         screenClass: YourScreenTypeInheritedFromUIViewController.self
 ///     )
 /// }

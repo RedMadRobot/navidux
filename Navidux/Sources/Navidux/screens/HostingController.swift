@@ -7,7 +7,7 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
     var tag: String
     var isModal: Bool = false
     var isNeedBackButton: Bool
-    weak var navigation: (any Coordinator)?
+    weak var navigation: (any Router)?
     var navigationCallback: (() -> Void)? = nil
     var onBackCallback: () -> Void
     
@@ -17,12 +17,12 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
     
     // MARK: - Init
     
-    init(navTitle: String, setBackButton: Bool, tag: String, navigation: (any Coordinator)?, content: ViewContent) {
+    init(navTitle: String, setBackButton: Bool, tag: String, navigation: (any Router)?, content: ViewContent) {
         self.tag = tag
         self.isNeedBackButton = setBackButton
         self.navigation = navigation
         onBackCallback = { [weak navigation] in
-            navigation?.actionReducer(action: .pop(nil))
+            navigation?.route(with: .pop(nil))
         }
         super.init(rootView: content)
         title = navTitle

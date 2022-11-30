@@ -1,4 +1,4 @@
-public final class NavigationCoordinator: Coordinator {
+public final class NavigationCoordinator: Router {
     var navigationController: NavigationController
     var screenAssembler: ScreenAssembler
     public var state: NavigationStore

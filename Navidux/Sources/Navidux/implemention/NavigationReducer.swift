@@ -1,5 +1,5 @@
 extension NavigationCoordinator {
-    public func actionReducer(action: Navigation.Action) {
+    public func route(with action: Navigation.Action) {
         switch action {
         case let .push(screen, config, presentationStyle):
             var controller: any NavigationScreen
