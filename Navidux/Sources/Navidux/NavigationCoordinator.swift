@@ -1,4 +1,4 @@
-public final class NavigationCoordinator: Coordinator {
+public final class NavigationCoordinator: Router {
     var navigationController: NavigationController
     var screenAssembler: ScreenAssembler
     public var state: NavigationStore
@@ -11,9 +11,5 @@ public final class NavigationCoordinator: Coordinator {
         navigationController = controller
         self.screenAssembler = screenAssembler
         self.state = state
-    }
-
-    public func start() {
-        actionReducer(action: .start(ScreenConfig(navigationTitle: "Start Screen", isNeedSetBackButton: false)))
     }
 }

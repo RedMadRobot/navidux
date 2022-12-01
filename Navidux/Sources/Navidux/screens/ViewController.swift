@@ -4,7 +4,7 @@ open class ViewController: UIViewController, NavigationScreen, DismissCheckable,
     public var tag: String
     public var isModal: Bool = false
     public var navigationCallback: (() -> Void)? = nil
-    public var navigation: (any Coordinator)?
+    public var navigation: (any Router)?
     public var onBackCallback: () -> Void
     open func gotUpdatedData(_ payload: NullablePayload) {}
     @objc func onBack() {
@@ -13,9 +13,9 @@ open class ViewController: UIViewController, NavigationScreen, DismissCheckable,
     
     // MARK: - Lifecycle
     
-    public init(navigation: (any Coordinator)?, tag: String = UUID().uuidString) {
+    public init(navigation: (any Router)?, tag: String = UUID().uuidString) {
         onBackCallback = { [weak navigation] in
-            navigation?.actionReducer(action: .pop(nil))
+            navigation?.route(with: .pop(nil))
         }
         self.navigation = navigation
         self.tag = tag

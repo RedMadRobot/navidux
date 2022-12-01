@@ -13,26 +13,12 @@ final class NavigationCoordinatorTests: XCTestCase {
         navigationController,
         screenAssembler: screenAssembler
     )
-    
-    func test_start_pushDefaultScreen() {
-        screenAssembler.navigation = navigationCoordinator
 
-        navigationCoordinator.start()
-        
-        XCTAssertEqual(
-            navigationController.callingStack,
-            [
-                .pushViewController(tag: NaviduxFixture.oneScreenTag),
-                .addToStack(tag: NaviduxFixture.oneScreenTag)
-            ]
-        )
-    }
-    
     func test_pushFullscreen_addCallForPush() {
         screenAssembler.navigation = navigationCoordinator
 
-        navigationCoordinator.actionReducer(
-            action: .push(
+        navigationCoordinator.route(
+            with: .push(
                 .firstScreen,
                 NaviduxFixture.mockScreenConfig(),
                 .fullscreen
@@ -52,8 +38,8 @@ final class NavigationCoordinatorTests: XCTestCase {
     func test_pushModal_addCallForPresentAndSetState() {
         screenAssembler.navigation = navigationCoordinator
         
-        navigationCoordinator.actionReducer(
-            action: .push(
+        navigationCoordinator.route(
+            with: .push(
                 .firstScreen,
                 NaviduxFixture.mockScreenConfig(),
                 .modal
@@ -75,8 +61,8 @@ final class NavigationCoordinatorTests: XCTestCase {
     func test_pushBottomSheet_addCallForPresentAndSetState() {
         screenAssembler.navigation = navigationCoordinator
         
-        navigationCoordinator.actionReducer(
-            action: .push(
+        navigationCoordinator.route(
+            with: .push(
                 .firstScreen,
                 NaviduxFixture.mockScreenConfig(),
                 .bottomSheet([.halfScreen])
@@ -98,15 +84,15 @@ final class NavigationCoordinatorTests: XCTestCase {
     func test_popFullscreen_addCallForPop() {
         screenAssembler.navigation = navigationCoordinator
         
-        navigationCoordinator.actionReducer(
-            action: .push(
+        navigationCoordinator.route(
+            with: .push(
                 .firstScreen,
                 NaviduxFixture.mockScreenConfig(),
                 .fullscreen
             )
         )
         
-        navigationCoordinator.actionReducer(action: .pop(nil))
+        navigationCoordinator.route(with: .pop(nil))
         
         XCTAssertEqual(
             navigationController.callingStack,
@@ -122,15 +108,15 @@ final class NavigationCoordinatorTests: XCTestCase {
     func test_popModal_addCallForDismiss() {
         screenAssembler.navigation = navigationCoordinator
         
-        navigationCoordinator.actionReducer(
-            action: .push(
+        navigationCoordinator.route(
+            with: .push(
                 .firstScreen,
                 NaviduxFixture.mockScreenConfig(),
                 .modal
             )
         )
         
-        navigationCoordinator.actionReducer(action: .pop(nil))
+        navigationCoordinator.route(with: .pop(nil))
         
         XCTAssertEqual(
             navigationController.callingStack,
@@ -146,8 +132,8 @@ final class NavigationCoordinatorTests: XCTestCase {
     func test_pushFullscreen_setCallback() {
         screenAssembler.navigation = navigationCoordinator
         
-        navigationCoordinator.actionReducer(
-            action: .push(
+        navigationCoordinator.route(
+            with: .push(
                 .firstScreen,
                 NaviduxFixture.mockScreenConfig(),
                 .fullscreen
@@ -161,8 +147,8 @@ final class NavigationCoordinatorTests: XCTestCase {
     func test_popToFullscreen_addCallForPop() {
         screenAssembler.navigation = navigationCoordinator
         
-        navigationCoordinator.actionReducer(
-            action: .restruct(
+        navigationCoordinator.route(
+            with: .restruct(
                 [
                     (.firstScreen, NaviduxFixture.mockScreenConfig()),
                     (.firstScreen, NaviduxFixture.mockScreenConfig()),
@@ -171,8 +157,8 @@ final class NavigationCoordinatorTests: XCTestCase {
             )
         )
         
-        navigationCoordinator.actionReducer(
-            action: .popUntil(.firstScreen, nil)
+        navigationCoordinator.route(
+            with: .popUntil(.firstScreen, nil)
         )
         
         XCTAssertEqual(
@@ -192,8 +178,8 @@ final class NavigationCoordinatorTests: XCTestCase {
     func test_popToModal_addCallForPop() {
         screenAssembler.navigation = navigationCoordinator
         
-        navigationCoordinator.actionReducer(
-            action: .restruct(
+        navigationCoordinator.route(
+            with: .restruct(
                 [
                     (.firstScreen, NaviduxFixture.mockScreenConfig()),
                     (.firstScreen, NaviduxFixture.mockScreenConfig()),
@@ -201,16 +187,16 @@ final class NavigationCoordinatorTests: XCTestCase {
                 ]
             )
         )
-        navigationCoordinator.actionReducer(
-            action: .push(
+        navigationCoordinator.route(
+            with: .push(
                 .firstScreen,
                 NaviduxFixture.mockScreenConfig(),
                 .modal
             )
         )
         
-        navigationCoordinator.actionReducer(
-            action: .popUntil(.firstScreen, nil)
+        navigationCoordinator.route(
+            with: .popUntil(.firstScreen, nil)
         )
         
         XCTAssertEqual(
