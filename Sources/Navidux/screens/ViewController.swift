@@ -1,6 +1,9 @@
 import UIKit
 
-open class ViewController: UIViewController, NavigationScreen, DismissCheckable, UIGestureRecognizerDelegate {
+open class ViewController: UIViewController,
+                           NavigationScreen,
+                           DismissCheckable,
+                           UIGestureRecognizerDelegate {
     public var tag: String
     public var isModal: Bool = false
     public var navigationCallback: (() -> Void)? = nil

@@ -1,6 +1,6 @@
 public struct ScreenConfig: Equatable {
-    let navigationTitle: String
-    var isNeedSetBackButton: Bool
+    public let navigationTitle: String
+    public var isNeedSetBackButton: Bool
     public var initialPayload: NullablePayload
 
     /// - Parameters:

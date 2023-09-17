@@ -26,7 +26,7 @@ The goals we want to achieve:
 
 ![Navidux scheme](readme/Navidux_scheme.png)
 
-Coordinator core consists from: 
+NavigationCoordinator core consists from: 
 - Reducer function - ``actionReducer(action:)``; 
 - ScreenAssembler - that implements in navigation depended module; 
 - State - contains important properties for better functionality;
@@ -61,7 +61,7 @@ extension NaviduxScreen {
 ```
 ``` swift
 extension Navidux.ScreenFactory {
-public var someScreenFactory: (Coordinator?, ScreenConfig) -> any NavigationScreen {
+public var someScreenFactory: (NavigationCoordinator?, ScreenConfig) -> any NavigationScreen {
     { coordinator, config
         return MyViewControllerConformedNavigationScreen()
     }
@@ -72,7 +72,7 @@ And implement Navidux.ScreenAssembler protocol.
 
 ## Usage
 ### Initialisation phase
-To set Navidux as initial navigation controller. You need do installation and preparation phases.  After you may initialise Coordinator like example below. 
+To set Navidux as initial navigation controller. You need do installation and preparation phases.  After you may initialise NavigationCoordinator like example below. 
 ``` swift
 let navigationController = NavigationControllerImpl()
 let screenFactory: ScreenFactory = NaviduxScreenFactory()
@@ -97,7 +97,7 @@ window?.rootViewController = navigationController
 ```
 
 ### Using phase
-For example in your UIViewController you may call Coordinator and ask it for action: 
+For example in your UIViewController you may call NavigationCoordinator and ask it for action: 
 ``` swift
 navigation?.actionReducer(
     action: .push(.nextScreen, .init(navigationTitle: "My title"), .fullscreen)
