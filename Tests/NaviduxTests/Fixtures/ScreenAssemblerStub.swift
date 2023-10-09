@@ -21,7 +21,11 @@ final class ScreenAssemblerStub: ScreenAssembler {
         screenType: Navidux.NaviduxScreen,
         config: Navidux.ScreenConfig
     ) -> any Navidux.NavigationScreen {
-        screenToPush ?? NaviduxFixture.mockNavigationScreen(coordinator: navigation, tag: vcTag ?? "")
+        screenToPush ?? NaviduxFixture.mockNavigationScreen(
+            coordinator: navigation,
+            tag: vcTag ?? "",
+            output: config.output
+        )
     }
 
     func assemblyAlert(configuration: Navidux.AlertConfiguration) -> Navidux.AlertScreen {

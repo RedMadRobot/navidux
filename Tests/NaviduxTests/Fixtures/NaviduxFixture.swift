@@ -6,13 +6,23 @@ struct NaviduxFixture {
     
     static func mockNavigationScreen(
         coordinator: Router? = nil,
-        tag: String = NaviduxFixture.mockScreenTag
+        tag: String = NaviduxFixture.mockScreenTag,
+        output: ((NullablePayload) -> Void)? = nil
     ) -> any NavigationScreen {
-        return ViewController(navigation: coordinator, tag: tag)
+        return ViewController(
+            navigation: coordinator,
+            tag: tag,
+            output: output ?? { _ in }
+        )
     }
     
     static func mockScreenConfig() -> ScreenConfig {
-        ScreenConfig(navigationTitle: "Default Mock")
+        ScreenConfig(
+            navigationTitle: "Default Mock",
+            output: { payload in
+                print("OUTPUT_PAYLOAD: \(String(describing: payload))")
+            }
+        )
     }
 }
 

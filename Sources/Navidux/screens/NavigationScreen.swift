@@ -12,6 +12,8 @@ public protocol NavigationScreen: UIViewController, AnyObject where Self: Equata
     var onBackCallback: () -> Void { get set }
     /// - **gotUpdatedData**: function that fired on then upper screen remove from nav stack and current screen become topScreen. Can be overrided.
     func gotUpdatedData(_ payload: NullablePayload)
+    
+    var output: ((NullablePayload) -> Void) { get }
 }
 
 extension NavigationScreen {

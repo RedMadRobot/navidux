@@ -10,6 +10,7 @@ extension NavigationCoordinator {
             popLast(animated: true)
             if let topScreen = navigationController.topScreen {
                 topScreen.gotUpdatedData(payload)
+                topScreen.output(payload)
             }
             
         case let .popUntil(screen, payload):
@@ -18,6 +19,7 @@ extension NavigationCoordinator {
                 popTo(screen: vc, animated: true)
                 if let topScreen = navigationController.topScreen {
                     topScreen.gotUpdatedData(payload)
+                    topScreen.output(payload)
                 }
             }
             
