@@ -1,6 +1,7 @@
 import UIKit
 
 open class ViewController: UIViewController, NavigationScreen, DismissCheckable, UIGestureRecognizerDelegate {
+    public var output: ((NullablePayload) -> Void)
     public var tag: String
     public var isModal: Bool = false
     public var navigationCallback: (() -> Void)? = nil
@@ -13,10 +14,15 @@ open class ViewController: UIViewController, NavigationScreen, DismissCheckable,
     
     // MARK: - Lifecycle
     
-    public init(navigation: (any Router)?, tag: String = UUID().uuidString) {
+    public init(
+        navigation: (any Router)?,
+        tag: String = UUID().uuidString,
+        output: @escaping (NullablePayload) -> Void
+    ) {
         onBackCallback = { [weak navigation] in
             navigation?.route(with: .pop(nil))
         }
+        self.output = output
         self.navigation = navigation
         self.tag = tag
         super.init(nibName: nil, bundle: nil)

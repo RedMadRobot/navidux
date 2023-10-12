@@ -73,8 +73,12 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
 }
 
 extension HostingController: NavigationScreen {
+    var output: ((NullablePayload) -> Void) {
+        { _ in }
+    }
+    
     func gotUpdatedData(_ payload: NullablePayload) {
         //HINT: Do some action on getted response from previous screen
-        debugPrint("Screen recieved data: \(payload)")
+        debugPrint("Screen recieved data: \(String(describing: payload))")
     }
 }
