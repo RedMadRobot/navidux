@@ -71,7 +71,7 @@ final class NavigationCoordinatorTests: XCTestCase {
             with: .push(
                 .firstScreen,
                 NaviduxFixture.mockScreenConfig(),
-                .bottomSheet([.halfScreen], scrollView: nil)
+                .bottomSheet([.halfScreen])
             )
         )
         

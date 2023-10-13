@@ -1,6 +1,23 @@
 import UIKit
 
 public final class NavigationControllerImpl: UINavigationController, NavigationController {
+   
+    // MARK: - Private properties
+    
+    private var navbarConfiguration: (UINavigationController) -> Void = { controller in
+        controller.view.backgroundColor = .white
+        controller.navigationBar.isTranslucent = false
+        controller.navigationBar.backgroundColor = .white
+        controller.navigationBar.shadowImage = .init()
+        controller.navigationBar.barTintColor = .white
+        controller.navigationBar.tintColor = .black
+        controller.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ]
+    }
+    
+    // MARK: - Public properties
+    
     public var screens: [any NavigationScreen] = [] {
         didSet { debugPrint("screenStack: \(screens.map { $0.tag })") }
     }
@@ -9,7 +26,14 @@ public final class NavigationControllerImpl: UINavigationController, NavigationC
         screens.last
     }
     
-    public init() {
+    // MARK: - Init
+    
+    public init(
+        navbarConfiguration: ((UINavigationController) -> Void)? = nil
+    ) {
+        if let navbarConfiguration {
+            self.navbarConfiguration = navbarConfiguration
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,30 +68,14 @@ public final class NavigationControllerImpl: UINavigationController, NavigationC
     public func rebuildNavStack(with screens: [any NavigationScreen]) {
         self.screens = screens
     }
-    
-    public override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
-    }
 
     public override var childForStatusBarStyle: UIViewController? {
-        return self.topViewController
+        self.topViewController
     }
     
     // MARK: - Private methods
     
     public func configureAppearance() {
-        /// Установка стиля навбара
-        // TODO: - Подумать над решением
-//        view.backgroundColor = .white
-//        navigationBar.isTranslucent = false
-//        navigationBar.backgroundColor = .white
-//        navigationBar.shadowImage = .init()
-//        navigationBar.barTintColor = .white
-//
-//        navigationBar.tintColor = .black
-//        navigationBar.titleTextAttributes = [
-//            NSAttributedString.Key.foregroundColor: UIColor.black
-//        ]
-        navigationBar.isTranslucent = true
+        navbarConfiguration(self)
     }
 }

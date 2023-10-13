@@ -1,6 +1,9 @@
 import UIKit
 
 extension NavigationCoordinator {
+    
+    // MARK: - Public methods
+    
     func pushNew(screen: any NavigationScreen, style: Navigation.PresentationStyle, animated: Bool) {
         switch style {
         case .fullscreen:
@@ -21,8 +24,8 @@ extension NavigationCoordinator {
             }
             state.hasOverlay = true
             
-        // TODO: - Спросить
-        case let .bottomSheet(sizes):
+        // TODO: - Уточнить на встрече про SheetViewController
+        case let .bottomSheet(size):
             screen.isModal = true
             let sheetController = screen
             sheetController.navigationCallback = { [weak self, weak screen] in
@@ -42,9 +45,10 @@ extension NavigationCoordinator {
         guard !state.isAlertShow else { return }
         state.isAlertShow = true
         navigationController.present(
-            alert.generateAlert(dismissedCallback: { [weak self] in
-                self?.alertControllerDismissed()
-            }),
+            alert.generateAlert(
+                dismissedCallback: { [weak self] in
+                    self?.alertControllerDismissed()
+                }),
             animated: true,
             completion: nil
         )
@@ -75,7 +79,6 @@ extension NavigationCoordinator {
         animated: Bool,
         animationType: Navigation.RestructActionAnimation
     ) {
-        // Если верхний экран равен верхнему экрану из нового стэка, то просто переставляем все экраны
         guard navigationController.topViewController != screens.last else {
             navigationController.viewControllers = screens
             return
@@ -100,6 +103,8 @@ extension NavigationCoordinator {
 
         navigationController.rebuildNavStack(with: screens)
     }
+    
+    // MARK: - Private methods
     
     private func updateStackWithBackwardAnimation(
         screens: [any NavigationScreen],

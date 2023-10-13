@@ -1,4 +1,7 @@
 extension NavigationCoordinator {
+    
+    // MARK: - Public methods
+    
     public func route(with action: Navigation.Action) {
         switch action {
         case let .push(screen, config, presentationStyle):
@@ -75,6 +78,8 @@ extension NavigationCoordinator {
         findFirstCertain(controller: controller, in: navigationController.screens)
     }
 
+    // MARK: - Private methods
+    
     private func findCertain(
         controller: NaviduxScreen,
         in stack: [any NavigationScreen]

@@ -9,13 +9,18 @@
 import UIKit
 
 public final class ActivityViewController: UIActivityViewController, NavigationScreen {
-    public var output: ((NullablePayload) -> Void)
+    
+    // MARK: - Public properties
+    
     public var tag: String
     public var isModal: Bool = true
     public var navigationCallback: (() -> Void)?
     public var onBackCallback: () -> Void
     public var dataToSendFromModal: NullablePayload
-
+    public var output: ((NullablePayload) -> Void)
+    
+    // MARK: - Init
+    
     public init(
         activityItems: [Any],
         applicationActivities: [UIActivity]?,
@@ -33,11 +38,14 @@ public final class ActivityViewController: UIActivityViewController, NavigationS
         )
     }
 
-    public func gotUpdatedData(_ payload: NullablePayload) {}
-
+    // MARK: - Lifecycle
+    
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
         navigationCallback?()
     }
+    
+    // MARK: - Public methods
+    
+    public func gotUpdatedData(_ payload: NullablePayload) {}
 }

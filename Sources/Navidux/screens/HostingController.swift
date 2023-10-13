@@ -2,37 +2,41 @@ import SwiftUI
 import UIKit
 
 final class HostingController<ViewContent: View>: UIHostingController<ViewContent>,
+                                                  NavigationScreen,
                                                   DismissCheckable,
                                                   UIGestureRecognizerDelegate {
+    
+    // MARK: - Public properties
+    
     var tag: String
     var isModal: Bool = false
-    var isNeedBackButton: Bool
     weak var navigation: (any Router)?
     var navigationCallback: (() -> Void)? = nil
-    var dataToSendFromModal: NullablePayload = nil
     var onBackCallback: () -> Void
-    
-    @objc func onBack() {
-        onBackCallback()
-    }
+    var backButtonImage: UIImage? = UIImage(systemName: "chevron.backward")
+    var isNeedBackButton: Bool
+    var dataToSendFromModal: NullablePayload = nil
+    var output: (NullablePayload) -> Void
     
     // MARK: - Init
     
     init(
-        navTitle: String,
-        setBackButton: Bool,
+        title: String,
+        isNeedBackButton: Bool,
         tag: String,
         navigation: (any Router)?,
-        content: ViewContent
+        content: ViewContent,
+        output: @escaping (NullablePayload) -> Void = { _ in }
     ) {
         self.tag = tag
-        self.isNeedBackButton = setBackButton
         self.navigation = navigation
-        onBackCallback = { [weak navigation] in
+        self.isNeedBackButton = isNeedBackButton
+        self.onBackCallback = { [weak navigation] in
             navigation?.route(with: .pop(nil))
         }
+        self.output = output
         super.init(rootView: content)
-        title = navTitle
+        self.title = title
     }
     
     @available(*, deprecated, message: "use init() instead.")
@@ -44,16 +48,16 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         if isNeedBackButton {
             configureNavigationBackButton(#selector(onBack))
+        } else {
+            navigationItem.hidesBackButton = true
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         cleanBackNavigationButton()
     }
     
@@ -64,7 +68,7 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
         }
     }
     
-    // MARK: - DismissCheckable
+    // MARK: - Public methods
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard
@@ -77,15 +81,12 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
         
         return false
     }
-}
-
-extension HostingController: NavigationScreen {
-    var output: ((NullablePayload) -> Void) {
-        { _ in }
+    
+    @objc
+    func onBack() {
+        onBackCallback()
     }
     
-    func gotUpdatedData(_ payload: NullablePayload) {
-        //HINT: Do some action on getted response from previous screen
-        debugPrint("Screen recieved data: \(String(describing: payload))")
-    }
+    // TODO: - Подумать как использовать
+    func gotUpdatedData(_ payload: NullablePayload) {}
 }

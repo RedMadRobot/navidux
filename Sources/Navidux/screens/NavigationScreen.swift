@@ -15,7 +15,8 @@ public protocol NavigationScreen: UIViewController, AnyObject, NavigationRestruc
     /// - **gotUpdatedData**: function that fired on then upper screen remove from nav stack and current screen become topScreen. Can be overrided.
     func gotUpdatedData(_ payload: NullablePayload)
     
-    var output: ((NullablePayload) -> Void) { get }
+    // TODO: - Дополнить документацию
+    var output: (NullablePayload) -> Void { get }
 }
 
 extension NavigationScreen {
@@ -25,6 +26,8 @@ extension NavigationScreen {
 }
 
 protocol DismissCheckable {
+    var backButtonImage: UIImage? { get set }
+    var isNeedBackButton: Bool { get set }
     func configureNavigationBackButton(_ selector: Selector)
     func cleanBackNavigationButton()
     func onBack()
@@ -32,15 +35,15 @@ protocol DismissCheckable {
 
 extension DismissCheckable where Self: UIViewController {
     
-    // TODO: - Передать извне
     func configureNavigationBackButton(_ selector: Selector) {
         navigationItem.hidesBackButton = true
         
         let backButton = UIBarButtonItem(
-            image: UIImage(systemName: "chevron.backward"),
+            image: backButtonImage,
             style: .plain,
             target: self,
-            action: selector)
+            action: selector
+        )
         
         navigationItem.leftBarButtonItem = backButton
     }
