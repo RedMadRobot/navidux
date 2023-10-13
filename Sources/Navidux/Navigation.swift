@@ -11,7 +11,7 @@ public enum Navigation: Equatable {
     public enum PresentationStyle {
         case fullscreen
         case modal
-        case bottomSheet([BottomSheetSize])
+        case bottomSheet([BottomSheetSize], scrollView: UIScrollView?)
         case custom(UIViewControllerTransitioningDelegate)
     }
 
@@ -19,13 +19,22 @@ public enum Navigation: Equatable {
         case fixed(CGFloat)
         case halfScreen
         case fullScreen
+        case auto
     }
 
+    public enum RestructActionAnimation {
+        case forward
+        case backward
+    }
+    
     public enum Action {
         case push(NaviduxScreen, ScreenConfig, PresentationStyle)
         case pop(NullablePayload)
         case popUntil(NaviduxScreen, NullablePayload)
-        case restruct([(NaviduxScreen, ScreenConfig)])
+        case restruct(screens: [NavigationRestructable], animationType: RestructActionAnimation)
+        case replaceCurrent(NaviduxScreen, ScreenConfig, RestructActionAnimation)
         case showAlert(AlertConfiguration)
     }
 }
+
+public protocol NavigationRestructable {}

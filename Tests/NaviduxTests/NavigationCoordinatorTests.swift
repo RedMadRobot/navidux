@@ -71,7 +71,7 @@ final class NavigationCoordinatorTests: XCTestCase {
             with: .push(
                 .firstScreen,
                 NaviduxFixture.mockScreenConfig(),
-                .bottomSheet([.halfScreen])
+                .bottomSheet([.halfScreen], scrollView: nil)
             )
         )
         
@@ -155,11 +155,12 @@ final class NavigationCoordinatorTests: XCTestCase {
         
         navigationCoordinator.route(
             with: .restruct(
-                [
-                    (.firstScreen, NaviduxFixture.mockScreenConfig()),
-                    (.firstScreen, NaviduxFixture.mockScreenConfig()),
-                    (.secondScreen, NaviduxFixture.mockScreenConfig()),
-                ]
+                screens: [
+                    ScreenAsseblyComponents(screenType: .firstScreen, config: NaviduxFixture.mockScreenConfig()),
+                    ScreenAsseblyComponents(screenType: .secondScreen, config: NaviduxFixture.mockScreenConfig()),
+                    ScreenAsseblyComponents(screenType: .thirdScreen, config: NaviduxFixture.mockScreenConfig()),
+                ],
+                animationType: .backward
             )
         )
         
@@ -186,11 +187,12 @@ final class NavigationCoordinatorTests: XCTestCase {
         
         navigationCoordinator.route(
             with: .restruct(
-                [
-                    (.firstScreen, NaviduxFixture.mockScreenConfig()),
-                    (.firstScreen, NaviduxFixture.mockScreenConfig()),
-                    (.secondScreen, NaviduxFixture.mockScreenConfig()),
-                ]
+                screens: [
+                    ScreenAsseblyComponents(screenType: .firstScreen, config: NaviduxFixture.mockScreenConfig()),
+                    ScreenAsseblyComponents(screenType: .secondScreen, config: NaviduxFixture.mockScreenConfig()),
+                    ScreenAsseblyComponents(screenType: .thirdScreen, config: NaviduxFixture.mockScreenConfig()),
+                ],
+                animationType: .backward
             )
         )
         navigationCoordinator.route(

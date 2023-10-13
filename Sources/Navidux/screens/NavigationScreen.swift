@@ -1,7 +1,7 @@
 import UIKit
 
 /// Main element of Navigation on Redux (Navidux). Uses for store/move screens in navigation stack.
-public protocol NavigationScreen: UIViewController, AnyObject where Self: Equatable {
+public protocol NavigationScreen: UIViewController, AnyObject, NavigationRestructable where Self: Equatable {
     /// - **tag**: The unique tag of the screen. Use for search in nav stack. Can be set on screen setup.
     var tag: String { get set }
     /// - **isModal**: property indicates that screen will be present as modal or not. Edited only from NavigationRouter.
@@ -10,6 +10,8 @@ public protocol NavigationScreen: UIViewController, AnyObject where Self: Equata
     var navigationCallback: (() -> Void)? { get set }
     /// - **onBackCallback**: function that fired then user use back button or swipe. Can be set on screen setup.
     var onBackCallback: () -> Void { get set }
+    /// - **dataToSendFromModal**: Data storage that will be used on dismiss screen and send to new top screen.
+    var dataToSendFromModal: NullablePayload { get }
     /// - **gotUpdatedData**: function that fired on then upper screen remove from nav stack and current screen become topScreen. Can be overrided.
     func gotUpdatedData(_ payload: NullablePayload)
     
@@ -30,6 +32,7 @@ protocol DismissCheckable {
 
 extension DismissCheckable where Self: UIViewController {
     
+    // TODO: - Передать извне
     func configureNavigationBackButton(_ selector: Selector) {
         navigationItem.hidesBackButton = true
         

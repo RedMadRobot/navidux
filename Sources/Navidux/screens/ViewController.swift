@@ -7,6 +7,7 @@ open class ViewController: UIViewController, NavigationScreen, DismissCheckable,
     public var navigationCallback: (() -> Void)? = nil
     public var navigation: (any Router)?
     public var onBackCallback: () -> Void
+    open var dataToSendFromModal: NullablePayload = nil
     open func gotUpdatedData(_ payload: NullablePayload) {}
     @objc func onBack() {
         onBackCallback()

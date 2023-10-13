@@ -9,6 +9,7 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
     var isNeedBackButton: Bool
     weak var navigation: (any Router)?
     var navigationCallback: (() -> Void)? = nil
+    var dataToSendFromModal: NullablePayload = nil
     var onBackCallback: () -> Void
     
     @objc func onBack() {
@@ -17,7 +18,13 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
     
     // MARK: - Init
     
-    init(navTitle: String, setBackButton: Bool, tag: String, navigation: (any Router)?, content: ViewContent) {
+    init(
+        navTitle: String,
+        setBackButton: Bool,
+        tag: String,
+        navigation: (any Router)?,
+        content: ViewContent
+    ) {
         self.tag = tag
         self.isNeedBackButton = setBackButton
         self.navigation = navigation

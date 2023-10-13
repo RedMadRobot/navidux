@@ -29,4 +29,12 @@ public final class NavigationCoordinatorProxy: Router {
     public func route(with action: Navigation.Action) {
         subject.route(with: action)
     }
+    
+    public func findCertain(controller: NaviduxScreen) -> (any NavigationScreen)? {
+        subject.findCertain(controller: controller)
+    }
+    
+    public func findFirstCertain(controller: NaviduxScreen) -> (any NavigationScreen)? {
+        subject.findFirstCertain(controller: controller)
+    }
 }

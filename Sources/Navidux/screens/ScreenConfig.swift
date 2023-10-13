@@ -9,10 +9,10 @@ public struct ScreenConfig: Equatable {
     ///     - isNeedSetBackButton: Set or remove back button in navigation bar. Action on callback can be overrided in `NavigationScreen` with function `onBackCallback`.
     ///     - initialPayload: Uses as additional parameter with some data to initialise `NavigationScreen` or some Module/Fabric.
     public init(
-        navigationTitle: String,
+        navigationTitle: String = "",
         isNeedSetBackButton: Bool = true,
         initialPayload: NullablePayload = nil,
-        output: ((NullablePayload) -> Void)?
+        output: ((NullablePayload) -> Void)? = nil
     ) {
         self.navigationTitle = navigationTitle
         self.isNeedSetBackButton = isNeedSetBackButton

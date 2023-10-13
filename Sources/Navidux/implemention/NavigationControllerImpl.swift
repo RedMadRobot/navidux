@@ -18,6 +18,15 @@ public final class NavigationControllerImpl: UINavigationController, NavigationC
         super.init(coder: aDecoder)
     }
     
+    // MARK: - Lifecycle
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        configureAppearance()
+    }
+    
+    // MARK: - Public methods
+    
     public func addToStack(screen: any NavigationScreen) {
         screens.append(screen)
     }
@@ -34,5 +43,31 @@ public final class NavigationControllerImpl: UINavigationController, NavigationC
     
     public func rebuildNavStack(with screens: [any NavigationScreen]) {
         self.screens = screens
+    }
+    
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
+
+    public override var childForStatusBarStyle: UIViewController? {
+        return self.topViewController
+    }
+    
+    // MARK: - Private methods
+    
+    public func configureAppearance() {
+        /// Установка стиля навбара
+        // TODO: - Подумать над решением
+//        view.backgroundColor = .white
+//        navigationBar.isTranslucent = false
+//        navigationBar.backgroundColor = .white
+//        navigationBar.shadowImage = .init()
+//        navigationBar.barTintColor = .white
+//
+//        navigationBar.tintColor = .black
+//        navigationBar.titleTextAttributes = [
+//            NSAttributedString.Key.foregroundColor: UIColor.black
+//        ]
+        navigationBar.isTranslucent = true
     }
 }

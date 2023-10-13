@@ -33,6 +33,8 @@ public protocol NavigationController {
     func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]?
     /// - **present(viewControllerToPresent:, animated:, completion:)**: (UINavigationController compatibility) Presents a view controller modally..
     func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
-    /// - **dismiss(animated:, completion:)**:(UINavigationController compatibility)  Dismisses the view controller that was presented modally by the view controller..
-    func dismiss(animated flag: Bool, completion: (() -> Void)?)
+    /// - **dismiss(animated:, completion:)**:(UINavigationController compatibility)  Dismisses the view controller that was presented modally by the view controller.
+    func dismiss(animated flag: Bool, completion: (() -> Void)?)    
+    /// - **setViewControllers(viewController:, animated:)**:(UINavigationController compatibility) If animated is YES, then simulate a push or pop depending on whether the new top view controller was previously in the stack.
+    func setViewControllers(_ viewControllers: [UIViewController], animated: Bool)
 }
