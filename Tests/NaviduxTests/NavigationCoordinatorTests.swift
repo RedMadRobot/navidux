@@ -104,9 +104,7 @@ final class NavigationCoordinatorTests: XCTestCase {
             navigationController.callingStack,
             [
                 .pushViewController(tag: NaviduxFixture.oneScreenTag),
-                .addToStack(tag: NaviduxFixture.oneScreenTag),
-                .popViewController,
-                .removeLastFromStack
+                .addToStack(tag: NaviduxFixture.oneScreenTag)
             ]
         )
     }
@@ -128,9 +126,7 @@ final class NavigationCoordinatorTests: XCTestCase {
             navigationController.callingStack,
             [
                 .present(tag: NaviduxFixture.oneScreenTag),
-                .addToStack(tag: NaviduxFixture.oneScreenTag),
-                .dismiss,
-                .removeLastFromStack
+                .addToStack(tag: NaviduxFixture.oneScreenTag)
             ]
         )
     }
