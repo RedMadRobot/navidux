@@ -43,10 +43,9 @@ open class ViewController: UIViewController,
     }
     
     // MARK: - Lifecycle
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
+
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if isNeedBackButton {
             configureNavigationBackButton(#selector(onBack))
         } else {
@@ -54,10 +53,18 @@ open class ViewController: UIViewController,
         }
     }
     
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        cleanBackNavigationButton()
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
+
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isNeedBackButton {
+            cleanBackNavigationButton()
+        }
+    }
+    
     
     // MARK: - Public methods
     

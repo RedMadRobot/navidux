@@ -45,10 +45,9 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
     }
     
     // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if isNeedBackButton {
             configureNavigationBackButton(#selector(onBack))
         } else {
@@ -56,15 +55,15 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        cleanBackNavigationButton()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if isBeingDismissed || isMovingFromParent {
-            navigationCallback?()
+        if isNeedBackButton {
+            cleanBackNavigationButton()
         }
     }
     
