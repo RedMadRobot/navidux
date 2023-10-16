@@ -25,7 +25,7 @@ extension NavigationScreen {
     }
 }
 
-protocol DismissCheckable {
+public protocol DismissCheckable {
     var backButtonImage: UIImage? { get set }
     var isNeedBackButton: Bool { get set }
     func configureNavigationBackButton(_ selector: Selector)
@@ -33,7 +33,7 @@ protocol DismissCheckable {
     func onBack()
 }
 
-extension DismissCheckable where Self: UIViewController {
+public extension DismissCheckable where Self: UIViewController {
     
     func configureNavigationBackButton(_ selector: Selector) {
         navigationItem.hidesBackButton = true

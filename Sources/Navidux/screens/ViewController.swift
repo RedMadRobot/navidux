@@ -81,7 +81,7 @@ open class ViewController: UIViewController,
     }
     
     @objc
-    func onBack() {
+    public func onBack() {
         onBackCallback()
     }
     
