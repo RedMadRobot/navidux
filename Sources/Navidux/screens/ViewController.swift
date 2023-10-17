@@ -9,7 +9,7 @@ open class ViewController: UIViewController,
     
     public var tag: String
     public var isModal: Bool = false
-    public var navigation: (any Router)?
+    public weak var navigation: (any Router)?
     public var navigationCallback: (() -> Void)? = nil
     public var onBackCallback: () -> Void
     public var backButtonImage: UIImage? = UIImage(systemName: "chevron.backward")

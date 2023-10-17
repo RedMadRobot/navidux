@@ -1,26 +1,26 @@
 import SwiftUI
 import UIKit
 
-final class HostingController<ViewContent: View>: UIHostingController<ViewContent>,
+public final class HostingController<ViewContent: View>: UIHostingController<ViewContent>,
                                                   NavigationScreen,
                                                   DismissCheckable,
                                                   UIGestureRecognizerDelegate {
     
     // MARK: - Public properties
     
-    var tag: String
-    var isModal: Bool = false
-    weak var navigation: (any Router)?
-    var navigationCallback: (() -> Void)? = nil
-    var onBackCallback: () -> Void
-    var backButtonImage: UIImage? = UIImage(systemName: "chevron.backward")
-    var isNeedBackButton: Bool
-    var dataToSendFromModal: NullablePayload = nil
-    var output: (NullablePayload) -> Void
+    public var tag: String
+    public var isModal: Bool = false
+    public weak var navigation: (any Router)?
+    public var navigationCallback: (() -> Void)? = nil
+    public var onBackCallback: () -> Void
+    public var backButtonImage: UIImage? = UIImage(systemName: "chevron.backward")
+    public var isNeedBackButton: Bool
+    public var dataToSendFromModal: NullablePayload = nil
+    public var output: (NullablePayload) -> Void
     
     // MARK: - Init
     
-    init(
+    public init(
         title: String,
         isNeedBackButton: Bool,
         tag: String,
@@ -39,14 +39,14 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
         self.title = title
     }
     
-    @available(*, deprecated, message: "use init() instead.")
-    required init?(coder _: NSCoder) {
+    @available(*, deprecated, message: "use init with params instead.")
+    public required init?(coder _: NSCoder) {
         return nil
     }
     
     // MARK: - Lifecycle
 
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isNeedBackButton {
             configureNavigationBackButton(#selector(onBack))
@@ -55,12 +55,12 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
+    public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if isNeedBackButton {
             cleanBackNavigationButton()
@@ -69,7 +69,7 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
     
     // MARK: - Public methods
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard
             gestureRecognizer.isEqual(navigationController?.interactivePopGestureRecognizer)
         else {
@@ -82,10 +82,10 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
     }
     
     @objc
-    func onBack() {
+    public func onBack() {
         onBackCallback()
     }
     
     // TODO: - Подумать как использовать
-    func gotUpdatedData(_ payload: NullablePayload) {}
+    public func gotUpdatedData(_ payload: NullablePayload) {}
 }
