@@ -49,7 +49,7 @@ extension NavigationCoordinator {
             }
             restruct(with: controllers, animated: true, animationType: animationType)
             
-        case let .replaceCurrent(screen, config, animationType):
+        case let .replaceCertain(screen, config, animationType):
             var controllers = navigationController.viewControllers.compactMap { $0 as? any NavigationScreen }
             let newController = screenAssembler.assemblyScreen(
                 components: ScreenAsseblyComponents(

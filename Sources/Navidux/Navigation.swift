@@ -32,7 +32,7 @@ public enum Navigation: Equatable {
         case pop(NullablePayload)
         case popUntil(NaviduxScreen, NullablePayload)
         case restruct(screens: [NavigationRestructable], animationType: RestructActionAnimation)
-        case replaceCurrent(NaviduxScreen, ScreenConfig, RestructActionAnimation)
+        case replaceCertain(NaviduxScreen, ScreenConfig, RestructActionAnimation)
         case showAlert(AlertConfiguration)
     }
 }

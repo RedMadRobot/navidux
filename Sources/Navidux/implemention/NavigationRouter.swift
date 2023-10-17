@@ -48,7 +48,8 @@ extension NavigationCoordinator {
             alert.generateAlert(
                 dismissedCallback: { [weak self] in
                     self?.alertControllerDismissed()
-                }),
+                }
+            ),
             animated: true,
             completion: nil
         )
@@ -149,22 +150,6 @@ extension NavigationCoordinator {
         }
         
         return result
-    }
-    
-    private func bottomShitControllerDismissed(screenTag: String?) {
-        guard let screenTag = screenTag, state.hasOverlay else { return }
-
-        let topScreen = navigationController.topScreen
-        if topScreen?.isModal ?? false,
-           topScreen?.tag == screenTag {
-            navigationController.removeLastFromStack()
-        } else {
-            let newStack = navigationController.screens.filter { $0.tag != screenTag }
-            navigationController.rebuildNavStack(with: newStack)
-        }
-
-        state.hasOverlay = false
-        navigationController.topScreen?.gotUpdatedData(topScreen?.dataToSendFromModal)
     }
     
     private func modalControllerDismissed(screenTag: String?) {
