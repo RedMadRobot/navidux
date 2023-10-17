@@ -7,8 +7,8 @@ extension NavigationCoordinator {
     func pushNew(screen: any NavigationScreen, style: Navigation.PresentationStyle, animated: Bool) {
         switch style {
         case .fullscreen:
-            screen.navigationCallback = { [weak self] in
-                self?.controllerDismissed(screenTag: screen.tag)
+            screen.navigationCallback = { [weak self, weak screen] in
+                self?.controllerDismissed(screenTag: screen?.tag)
             }
             navigationController.pushViewController(screen, animated: animated)
             
