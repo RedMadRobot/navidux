@@ -13,10 +13,10 @@ public protocol NavigationScreen: UIViewController, AnyObject, NavigationRestruc
     /// - **dataToSendFromModal**: Data storage that will be used on dismiss screen and send to new top screen.
     var dataToSendFromModal: NullablePayload { get }
     /// - **gotUpdatedData**: function that fired on then upper screen remove from nav stack and current screen become topScreen. Can be overrided.
+    @available(*, deprecated, message: "Please, use 'output' property instead")
     func gotUpdatedData(_ payload: NullablePayload)
-    
-    // TODO: - Дополнить документацию
-    var output: (NullablePayload) -> Void { get }
+    /// - **output**: property can be used to get call back when upper screen will be removed from nav stack and current screen will become topScreen
+    var output: ((NullablePayload) -> Void) { get }
 }
 
 extension NavigationScreen {

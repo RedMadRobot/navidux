@@ -4,12 +4,12 @@ import XCTest
 final class NavigationCoordinatorTests: XCTestCase {
     let navigationController = NavigationControllerStub()
     var expectedPayload: PayloadStub?
-        lazy var navigationScreen = NaviduxFixture.mockNavigationScreen(
-            tag: NaviduxFixture.oneScreenTag,
-            output: { [weak self] payload in
-                self?.expectedPayload = payload as? PayloadStub
-            }
-        )
+    lazy var navigationScreen = NaviduxFixture.mockNavigationScreen(
+        tag: NaviduxFixture.oneScreenTag,
+        output: { [weak self] payload in
+            self?.expectedPayload = payload as? PayloadStub
+        }
+    )
     lazy var screenAssembler = ScreenAssemblerStub(
         vcTag: NaviduxFixture.oneScreenTag,
         screenToPush: navigationScreen
@@ -219,39 +219,39 @@ final class NavigationCoordinatorTests: XCTestCase {
     }
     
     func test_popWithPayload() {
-            screenAssembler.navigation = navigationCoordinator
-
-            navigationCoordinator.route(with: .push(
-                .firstScreen,
-                NaviduxFixture.mockScreenConfig(),
-                .fullscreen)
-            )
-
-            navigationCoordinator.route(with: .push(
-                .secondScreen,
-                NaviduxFixture.mockScreenConfig(),
-                .fullscreen)
-            )
-
-            let outputPayload = PayloadStub(value: 123)
-            navigationCoordinator.route(with: .pop(outputPayload))
-
-            XCTAssertEqual(
-                navigationController.callingStack,
-                [
-                    .pushViewController(tag: NaviduxFixture.oneScreenTag),
-                    .addToStack(tag: NaviduxFixture.oneScreenTag),
-
-                    .pushViewController(tag: NaviduxFixture.oneScreenTag),
-                    .addToStack(tag: NaviduxFixture.oneScreenTag),
-
-                    .popViewController,
-                    .removeLastFromStack
-                ]
-            )
-
-            XCTAssertEqual(navigationController.screens.count, 1)
-
-            XCTAssertEqual(outputPayload, expectedPayload)
-        }
+        screenAssembler.navigation = navigationCoordinator
+                
+        navigationCoordinator.route(with: .push(
+            .firstScreen,
+            NaviduxFixture.mockScreenConfig(),
+            .fullscreen)
+        )
+        
+        navigationCoordinator.route(with: .push(
+            .secondScreen,
+            NaviduxFixture.mockScreenConfig(),
+            .fullscreen)
+        )
+        
+        let outputPayload = PayloadStub(value: 123)
+        navigationCoordinator.route(with: .pop(outputPayload))
+        
+        XCTAssertEqual(
+            navigationController.callingStack,
+            [
+                .pushViewController(tag: NaviduxFixture.oneScreenTag),
+                .addToStack(tag: NaviduxFixture.oneScreenTag),
+                
+                .pushViewController(tag: NaviduxFixture.oneScreenTag),
+                .addToStack(tag: NaviduxFixture.oneScreenTag),
+                
+                .popViewController,
+                .removeLastFromStack
+            ]
+        )
+        
+        XCTAssertEqual(navigationController.screens.count, 1)
+        
+        XCTAssertEqual(outputPayload, expectedPayload)
+    }
 }
