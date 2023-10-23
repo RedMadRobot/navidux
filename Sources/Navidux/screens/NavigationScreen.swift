@@ -11,7 +11,10 @@ public protocol NavigationScreen: UIViewController, AnyObject where Self: Equata
     /// - **onBackCallback**: function that fired then user use back button or swipe. Can be set on screen setup.
     var onBackCallback: () -> Void { get set }
     /// - **gotUpdatedData**: function that fired on then upper screen remove from nav stack and current screen become topScreen. Can be overrided.
+    @available(*, deprecated, message: "Please, use 'output' property instead")
     func gotUpdatedData(_ payload: NullablePayload)
+    /// - **output**: property can be used to get call back when upper screen will be removed from nav stack and current screen will become topScreen
+    var output: ((NullablePayload) -> Void) { get }
 }
 
 extension NavigationScreen {

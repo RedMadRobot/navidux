@@ -2,6 +2,7 @@ public struct ScreenConfig: Equatable {
     let navigationTitle: String
     var isNeedSetBackButton: Bool
     public var initialPayload: NullablePayload
+    public var output: ((NullablePayload) -> Void)
 
     /// - Parameters:
     ///     - navigationTitle: Set navigation title for screen on init.
@@ -10,11 +11,13 @@ public struct ScreenConfig: Equatable {
     public init(
         navigationTitle: String,
         isNeedSetBackButton: Bool = true,
-        initialPayload: NullablePayload = nil
+        initialPayload: NullablePayload = nil,
+        output: ((NullablePayload) -> Void)?
     ) {
         self.navigationTitle = navigationTitle
         self.isNeedSetBackButton = isNeedSetBackButton
         self.initialPayload = initialPayload
+        self.output = output ?? { _ in }
     }
 
     public static func == (lhs: ScreenConfig, rhs: ScreenConfig) -> Bool {

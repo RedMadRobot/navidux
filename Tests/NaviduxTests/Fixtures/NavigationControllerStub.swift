@@ -18,7 +18,9 @@ final class NavigationControllerStub: NavigationController {
     
     var screens: [any NavigationScreen] = []
 
-    var topScreen: (any NavigationScreen)? = nil
+    var topScreen: (any NavigationScreen)? {
+        screens.last
+    }
     
     var topViewController: UIViewController? {
         screens.last
@@ -27,10 +29,12 @@ final class NavigationControllerStub: NavigationController {
     var viewControllers: [UIViewController] = []
 
     func addToStack(screen: any NavigationScreen) {
+        screens.append(screen)
         callingStack.append(.addToStack(tag: screen.tag))
     }
 
     func removeLastFromStack() {
+        screens.removeLast()
         callingStack.append(.removeLastFromStack)
     }
 
@@ -39,6 +43,7 @@ final class NavigationControllerStub: NavigationController {
     }
 
     func rebuildNavStack(with screens: [any NavigationScreen]) {
+        self.screens = screens
         callingStack.append(.rebuildNavStack(tags: screens.map { $0.tag }))
     }
     
