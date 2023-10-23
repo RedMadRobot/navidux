@@ -14,7 +14,7 @@ public final class NaviduxScreenAssembler: Navidux.ScreenAssembler {
         self.alertFactory = alertFactory
         self.screenCoordinator = screenCoordinator
     }
-
+    
     public func assemblyScreen(screenType: NaviduxScreen, config: ScreenConfig) -> any NavigationScreen {
         switch screenType {
         case .firstScreen:
@@ -26,6 +26,10 @@ public final class NaviduxScreenAssembler: Navidux.ScreenAssembler {
         }
     }
 
+    public func assemblyScreen(components: ScreenAsseblyComponents) -> any NavigationScreen {
+        assemblyScreen(screenType: components.screenType, config: components.config)
+    }
+    
     public func assemblyAlert(configuration: AlertConfiguration) -> AlertScreen {
         alertFactory.createAlert(configuration: configuration)
     }

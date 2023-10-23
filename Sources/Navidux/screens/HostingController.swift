@@ -1,41 +1,42 @@
 import SwiftUI
 import UIKit
 
-open class HostingController<ViewContent: View>: UIHostingController<ViewContent>,
+public final class HostingController<ViewContent: View>: UIHostingController<ViewContent>,
                                                   NavigationScreen,
                                                   DismissCheckable,
                                                   UIGestureRecognizerDelegate {
+    
+    // MARK: - Public properties
+    
     public var tag: String
     public var isModal: Bool = false
-    var isNeedBackButton: Bool
     public weak var navigation: (any Router)?
     public var navigationCallback: (() -> Void)? = nil
     public var onBackCallback: () -> Void
-    open func gotUpdatedData(_ payload: NullablePayload) {
-        print("got data from top screen: \(payload.debugDescription)")
-    }
-    
-    @objc func onBack() {
-        onBackCallback()
-    }
+    public var backButtonImage: UIImage? = UIImage(systemName: "chevron.backward")
+    public var isNeedBackButton: Bool
+    public var dataToSendFromModal: NullablePayload = nil
+    public var output: (NullablePayload) -> Void
     
     // MARK: - Init
     
     public init(
-        navTitle: String,
-        setBackButton: Bool = false,
+        title: String,
+        isNeedBackButton: Bool,
         tag: String,
-        navigation: (any Router)? = nil,
-        content: ViewContent
+        navigation: (any Router)?,
+        content: ViewContent,
+        output: @escaping (NullablePayload) -> Void = { _ in }
     ) {
         self.tag = tag
-        self.isNeedBackButton = setBackButton
         self.navigation = navigation
-        onBackCallback = { [weak navigation] in
+        self.isNeedBackButton = isNeedBackButton
+        self.onBackCallback = { [weak navigation] in
             navigation?.route(with: .pop(nil))
         }
+        self.output = output
         super.init(rootView: content)
-        title = navTitle
+        self.title = title
     }
     
     @available(*, deprecated, message: "use init with params instead.")
@@ -44,30 +45,29 @@ open class HostingController<ViewContent: View>: UIHostingController<ViewContent
     }
     
     // MARK: - Lifecycle
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
+
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if isNeedBackButton {
             configureNavigationBackButton(#selector(onBack))
+        } else {
+            navigationItem.hidesBackButton = true
         }
     }
     
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        cleanBackNavigationButton()
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
-    
-    open override func viewDidDisappear(_ animated: Bool) {
+
+    public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if isBeingDismissed || isMovingFromParent {
-            navigationCallback?()
+        if isNeedBackButton {
+            cleanBackNavigationButton()
         }
     }
     
-    // MARK: - DismissCheckable
+    // MARK: - Public methods
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard
@@ -80,15 +80,12 @@ open class HostingController<ViewContent: View>: UIHostingController<ViewContent
         
         return false
     }
-}
-
-extension HostingController: NavigationScreen {
-    var output: ((NullablePayload) -> Void) {
-        { _ in }
+    
+    @objc
+    public func onBack() {
+        onBackCallback()
     }
     
-    func gotUpdatedData(_ payload: NullablePayload) {
-        //HINT: Do some action on getted response from previous screen
-        debugPrint("Screen recieved data: \(String(describing: payload))")
-    }
+    // TODO: - Подумать как использовать
+    public func gotUpdatedData(_ payload: NullablePayload) {}
 }

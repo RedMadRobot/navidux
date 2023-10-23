@@ -5,12 +5,13 @@ extension Navidux.ScreenFactory {
         { coordinator, screenConfig in
             let viewContent = FirstContentView(navigation: coordinator)
             let viewController = HostingController(
-                navTitle: screenConfig.navigationTitle,
+                title: screenConfig.navigationTitle,
+                isNeedBackButton: false,
                 tag: "FirstContentView",
                 navigation: coordinator,
                 content: viewContent
             )
-
+            
             return viewController
         }
     }
@@ -19,13 +20,13 @@ extension Navidux.ScreenFactory {
         { coordinator, screenConfig in
             let viewContent = SecondContentView(navigation: coordinator)
             let viewController = HostingController(
-                navTitle: screenConfig.navigationTitle,
-                setBackButton: true,
+                title: screenConfig.navigationTitle,
+                isNeedBackButton: true,
                 tag: "SecondContentView",
                 navigation: coordinator,
                 content: viewContent
             )
-
+            
             return viewController
         }
     }

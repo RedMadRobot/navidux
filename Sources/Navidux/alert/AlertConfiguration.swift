@@ -17,15 +17,14 @@ public struct AlertConfiguration: Equatable {
         case destructive
     }
     
-    //TODO: Подумать над именем кейсов
-    public enum Presentation: Equatable {
-        case bottomsheet
+    public enum PresentationStyle: Equatable {
+        case actionSheet
         case center
     }
     
     let title: String
     let message: String
-    let style: Presentation
+    let style: PresentationStyle
     let actions: [ButtonAction]
 }
 

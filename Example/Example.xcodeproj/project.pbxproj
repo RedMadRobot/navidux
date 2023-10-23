@@ -46,6 +46,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3557978C2ADE834F00B91526 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		E239A3AF2915756C00A03EB6 = {
 			isa = PBXGroup;
 			children = (
@@ -67,7 +74,7 @@
 		E239A3BA2915756C00A03EB6 /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				E2D206232AB32C0A0066EE5D /* Preview Content */,
+				3557978C2ADE834F00B91526 /* Preview Content */,
 				E239A3DE2916DE4700A03EB6 /* Info.plist */,
 				E239A3D529157A8100A03EB6 /* Navidux+Ext */,
 				E239A3CF291578FD00A03EB6 /* Screens */,
@@ -111,13 +118,6 @@
 				E239A3DA29157B9300A03EB6 /* NaviduxScreenFactory.swift */,
 			);
 			path = "Navidux+Ext";
-			sourceTree = "<group>";
-		};
-		E2D206232AB32C0A0066EE5D /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		E2D206242AB32DB30066EE5D /* Packages */ = {

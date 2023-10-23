@@ -1,31 +1,40 @@
 import UIKit
 
-open class ViewController: UIViewController, NavigationScreen, DismissCheckable, UIGestureRecognizerDelegate {
-    public var output: ((NullablePayload) -> Void)
+open class ViewController: UIViewController,
+                           NavigationScreen,
+                           DismissCheckable,
+                           UIGestureRecognizerDelegate {
+    
+    // MARK: - Public properties
+    
     public var tag: String
     public var isModal: Bool = false
+    public weak var navigation: (any Router)?
     public var navigationCallback: (() -> Void)? = nil
-    public var navigation: (any Router)?
     public var onBackCallback: () -> Void
-    open func gotUpdatedData(_ payload: NullablePayload) {}
-    @objc func onBack() {
-        onBackCallback()
-    }
+    public var backButtonImage: UIImage? = UIImage(systemName: "chevron.backward")
+    public var isNeedBackButton: Bool
+    open var dataToSendFromModal: NullablePayload = nil
+    public var output: ((NullablePayload) -> Void)
     
-    // MARK: - Lifecycle
+    // MARK: - Init
     
     public init(
-        navigation: (any Router)?,
+        title: String = "",
+        isNeedBackButton: Bool = true,
+        navigation: (any Router)? = nil,
         tag: String = UUID().uuidString,
-        output: @escaping (NullablePayload) -> Void
+        output: @escaping (NullablePayload) -> Void = { _ in }
     ) {
-        onBackCallback = { [weak navigation] in
+        self.navigation = navigation
+        self.tag = tag
+        self.isNeedBackButton = isNeedBackButton
+        self.onBackCallback = { [weak navigation] in
             navigation?.route(with: .pop(nil))
         }
         self.output = output
-        self.navigation = navigation
-        self.tag = tag
         super.init(nibName: nil, bundle: nil)
+        self.title = title
     }
     
     @available(*, deprecated, message: "use init() instead.")
@@ -33,20 +42,31 @@ open class ViewController: UIViewController, NavigationScreen, DismissCheckable,
         fatalError("init(coder:) has not been implemented")
     }
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
-        configureNavigationBackButton(#selector(onBack))
+    // MARK: - Lifecycle
+
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if isNeedBackButton {
+            configureNavigationBackButton(#selector(onBack))
+        } else {
+            navigationItem.hidesBackButton = true
+        }
     }
     
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        cleanBackNavigationButton()
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
-    // MARK: - DismissCheckable
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if isNeedBackButton {
+            cleanBackNavigationButton()
+        }
+    }
+    
+    
+    // MARK: - Public methods
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard
@@ -58,5 +78,15 @@ open class ViewController: UIViewController, NavigationScreen, DismissCheckable,
         onBack()
         
         return false
+    }
+    
+    @objc
+    public func onBack() {
+        onBackCallback()
+    }
+    
+    open func gotUpdatedData(_ payload: NullablePayload) {
+        //HINT: Do some action on getted response from previous screen
+        debugPrint("Screen recieved data: \(String(describing: payload))")
     }
 }

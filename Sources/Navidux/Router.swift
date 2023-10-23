@@ -5,4 +5,6 @@ import UIKit
 /// - Note use **route(with:)** function with some action to change state of navigation stack. It's trigger inner function to change navigation screen.
 public protocol Router: AnyObject {
     func route(with action: Navigation.Action)
+    func findCertain(controller: NaviduxScreen) -> (any NavigationScreen)?
+    func findFirstCertain(controller: NaviduxScreen) -> (any NavigationScreen)?
 }

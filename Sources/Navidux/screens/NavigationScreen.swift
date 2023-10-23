@@ -1,7 +1,7 @@
 import UIKit
 
 /// Main element of Navigation on Redux (Navidux). Uses for store/move screens in navigation stack.
-public protocol NavigationScreen: UIViewController, AnyObject where Self: Equatable {
+public protocol NavigationScreen: UIViewController, AnyObject, NavigationRestructable where Self: Equatable {
     /// - **tag**: The unique tag of the screen. Use for search in nav stack. Can be set on screen setup.
     var tag: String { get set }
     /// - **isModal**: property indicates that screen will be present as modal or not. Edited only from NavigationRouter.
@@ -10,6 +10,8 @@ public protocol NavigationScreen: UIViewController, AnyObject where Self: Equata
     var navigationCallback: (() -> Void)? { get set }
     /// - **onBackCallback**: function that fired then user use back button or swipe. Can be set on screen setup.
     var onBackCallback: () -> Void { get set }
+    /// - **dataToSendFromModal**: Data storage that will be used on dismiss screen and send to new top screen.
+    var dataToSendFromModal: NullablePayload { get }
     /// - **gotUpdatedData**: function that fired on then upper screen remove from nav stack and current screen become topScreen. Can be overrided.
     @available(*, deprecated, message: "Please, use 'output' property instead")
     func gotUpdatedData(_ payload: NullablePayload)
@@ -23,22 +25,25 @@ extension NavigationScreen {
     }
 }
 
-protocol DismissCheckable {
+public protocol DismissCheckable {
+    var backButtonImage: UIImage? { get set }
+    var isNeedBackButton: Bool { get set }
     func configureNavigationBackButton(_ selector: Selector)
     func cleanBackNavigationButton()
     func onBack()
 }
 
-extension DismissCheckable where Self: UIViewController {
+public extension DismissCheckable where Self: UIViewController {
     
     func configureNavigationBackButton(_ selector: Selector) {
         navigationItem.hidesBackButton = true
         
         let backButton = UIBarButtonItem(
-            image: UIImage(systemName: "chevron.backward"),
+            image: backButtonImage,
             style: .plain,
             target: self,
-            action: selector)
+            action: selector
+        )
         
         navigationItem.leftBarButtonItem = backButton
     }

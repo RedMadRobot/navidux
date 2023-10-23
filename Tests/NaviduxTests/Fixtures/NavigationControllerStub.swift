@@ -11,6 +11,7 @@ enum NavigationControllerCallingMethods: Equatable {
     case popToViewController(tag: String?)
     case present(tag: String?)
     case dismiss
+    case setViewControllers
 }
 
 final class NavigationControllerStub: NavigationController {
@@ -28,6 +29,11 @@ final class NavigationControllerStub: NavigationController {
 
     var viewControllers: [UIViewController] = []
 
+    func setViewControllers(_ viewControllers: [UIViewController], animated: Bool) {
+        self.viewControllers = viewControllers
+        callingStack.append(.setViewControllers)
+    }
+    
     func addToStack(screen: any NavigationScreen) {
         screens.append(screen)
         callingStack.append(.addToStack(tag: screen.tag))

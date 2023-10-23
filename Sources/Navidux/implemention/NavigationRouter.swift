@@ -1,21 +1,31 @@
 import UIKit
 
 extension NavigationCoordinator {
+    
+    // MARK: - Public methods
+    
     func pushNew(screen: any NavigationScreen, style: Navigation.PresentationStyle, animated: Bool) {
         switch style {
         case .fullscreen:
-            screen.navigationCallback = { [weak self] in
-                self?.controllerDismissed(screenTag: screen.tag)
+            screen.navigationCallback = { [weak self, weak screen] in
+                self?.controllerDismissed(screenTag: screen?.tag)
             }
             navigationController.pushViewController(screen, animated: animated)
+            
         case .modal:
             screen.isModal = true
             screen.navigationCallback = { [weak self, weak screen] in
                 self?.modalControllerDismissed(screenTag: screen?.tag)
             }
+            if state.hasOverlay {
+                navigationController.topScreen?.present(screen, animated: animated, completion: nil)
+            } else {
+                navigationController.present(screen, animated: animated, completion: nil)
+            }
             state.hasOverlay = true
-            navigationController.present(screen, animated: animated, completion: nil)
-        case let .bottomSheet(sizes):
+            
+        // TODO: - Допилить SheetViewController
+        case let .bottomSheet(size):
             screen.isModal = true
             let sheetController = screen
             sheetController.navigationCallback = { [weak self, weak screen] in
@@ -23,6 +33,8 @@ extension NavigationCoordinator {
             }
             state.hasOverlay = true
             navigationController.present(sheetController, animated: false, completion: nil)
+            
+        // TODO: - Реализовать
         case let .custom(delegate):
             break
         }
@@ -33,9 +45,11 @@ extension NavigationCoordinator {
         guard !state.isAlertShow else { return }
         state.isAlertShow = true
         navigationController.present(
-            alert.generateAlert(dismissedCallback: { [weak self] in
-                self?.alertControllerDismissed()
-            }),
+            alert.generateAlert(
+                dismissedCallback: { [weak self] in
+                    self?.alertControllerDismissed()
+                }
+            ),
             animated: true,
             completion: nil
         )
@@ -61,26 +75,66 @@ extension NavigationCoordinator {
         navigationController.removeTillFromStack(screen: screen)
     }
     
-    func restruct(with screens: [any NavigationScreen], animated: Bool) {
-        if navigationController.topViewController == screens.last {
-            // Если верхний экран равен верхнему экрану из нового стэка, то просто переставляем все экраны
+    func restruct(
+        with screens: [any NavigationScreen],
+        animated: Bool,
+        animationType: Navigation.RestructActionAnimation
+    ) {
+        guard navigationController.topViewController != screens.last else {
             navigationController.viewControllers = screens
-        } else {
-            // Если верхний экране не равен, то обновляем все экраны, при этом оставляем верхний на месте, и после обновлния попаем(дисмиссим) его.
-            var newStack = (screens.map { $0 as UIViewController })
-            if !state.hasOverlay {
-                newStack += [navigationController.topViewController].compactMap { $0 }
-            }
-            navigationController.viewControllers = newStack
-            
-            if navigationController.topScreen?.isModal ?? false {
-                state.hasOverlay = false
-                navigationController.dismiss(animated: animated, completion: nil)
-            } else {
-                navigationController.popViewController(animated: animated)
-            }
+            return
         }
+        
+        switch animationType {
+        case .forward:
+            updateStackWithForwardAnimation(
+                screens: screens,
+                navigationController: &navigationController,
+                store: &state,
+                animated: animated
+            )
+        case .backward:
+            updateStackWithBackwardAnimation(
+                screens: screens,
+                navigationController: &navigationController,
+                store: &state,
+                animated: animated
+            )
+        }
+
         navigationController.rebuildNavStack(with: screens)
+    }
+    
+    // MARK: - Private methods
+    
+    private func updateStackWithBackwardAnimation(
+        screens: [any NavigationScreen],
+        navigationController: inout NavigationController,
+        store: inout NavigationStore,
+        animated: Bool
+    ) {
+        var newStack = (screens.map { $0 as UIViewController })
+        if !store.hasOverlay {
+            newStack += [navigationController.topViewController].compactMap { $0 }
+        }
+        navigationController.viewControllers = newStack
+
+        if navigationController.topScreen?.isModal ?? false {
+            store.hasOverlay = false
+            navigationController.dismiss(animated: animated, completion: nil)
+        } else {
+            navigationController.popViewController(animated: animated)
+        }
+    }
+
+    private func updateStackWithForwardAnimation(
+        screens: [any NavigationScreen],
+        navigationController: inout NavigationController,
+        store: inout NavigationStore,
+        animated: Bool
+    ) {
+        let newStack = screens.map { $0 as UIViewController }
+        navigationController.setViewControllers(newStack, animated: animated)
     }
     
     private func checkEquality(lhs: [any NavigationScreen], rhs: [any NavigationScreen]) -> Bool {
@@ -100,11 +154,16 @@ extension NavigationCoordinator {
     
     private func modalControllerDismissed(screenTag: String?) {
         guard let screenTag = screenTag else { return }
-        
+
         let topScreen = navigationController.topScreen
-        if state.hasOverlay && topScreen?.isModal ?? false && topScreen?.tag == screenTag {
+        if state.hasOverlay,
+           topScreen?.isModal ?? false,
+           topScreen?.tag == screenTag {
             navigationController.removeLastFromStack()
-            state.hasOverlay = false
+            if !(navigationController.topScreen?.isModal ?? false) {
+                state.hasOverlay = false
+            }
+            navigationController.topScreen?.gotUpdatedData(topScreen?.dataToSendFromModal)
         }
     }
     

@@ -14,7 +14,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 
-        let navigation = NavigationControllerImpl()
+        let navigation = NavigationControllerImpl { controller in
+            controller.view.backgroundColor = .green
+            controller.navigationBar.isTranslucent = false
+            controller.navigationBar.backgroundColor = .green
+            controller.navigationBar.shadowImage = .init()
+            controller.navigationBar.barTintColor = .green
+            controller.navigationBar.tintColor = .black
+            controller.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.black
+            ]
+        }
         let screenFactory = NaviduxScreenFactory()
         let alertFactory = AlertFactoryImpl()
         let navigationCoordinatorProxy = NavigationCoordinatorProxy()

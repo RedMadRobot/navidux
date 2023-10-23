@@ -17,14 +17,11 @@ final class ScreenAssemblerStub: ScreenAssembler {
         self.screenToPush = screenToPush
     }
 
-    func assemblyScreen(
-        screenType: Navidux.NaviduxScreen,
-        config: Navidux.ScreenConfig
-    ) -> any Navidux.NavigationScreen {
+    func assemblyScreen(components: Navidux.ScreenAsseblyComponents) -> any Navidux.NavigationScreen {
         screenToPush ?? NaviduxFixture.mockNavigationScreen(
             coordinator: navigation,
             tag: vcTag ?? "",
-            output: config.output
+            output: components.config.output
         )
     }
 
