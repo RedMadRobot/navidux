@@ -20,9 +20,9 @@
 ///navigationCoordinatorProxy.subject = navigationCoordinator
 ///```
 public final class NavigationCoordinatorProxy: Router {
-    public var subject: Router!
+    public var subject: NavigationCoordinator!
 
-    public init(subject: Router? = nil) {
+    public init(subject: NavigationCoordinator? = nil) {
         self.subject = subject
     }
 

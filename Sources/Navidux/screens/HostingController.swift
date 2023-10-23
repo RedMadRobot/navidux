@@ -1,15 +1,19 @@
 import SwiftUI
 import UIKit
 
-final class HostingController<ViewContent: View>: UIHostingController<ViewContent>,
+open class HostingController<ViewContent: View>: UIHostingController<ViewContent>,
+                                                  NavigationScreen,
                                                   DismissCheckable,
                                                   UIGestureRecognizerDelegate {
-    var tag: String
-    var isModal: Bool = false
+    public var tag: String
+    public var isModal: Bool = false
     var isNeedBackButton: Bool
-    weak var navigation: (any Router)?
-    var navigationCallback: (() -> Void)? = nil
-    var onBackCallback: () -> Void
+    public weak var navigation: (any Router)?
+    public var navigationCallback: (() -> Void)? = nil
+    public var onBackCallback: () -> Void
+    open func gotUpdatedData(_ payload: NullablePayload) {
+        print("got data from top screen: \(payload.debugDescription)")
+    }
     
     @objc func onBack() {
         onBackCallback()
@@ -17,7 +21,13 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
     
     // MARK: - Init
     
-    init(navTitle: String, setBackButton: Bool, tag: String, navigation: (any Router)?, content: ViewContent) {
+    public init(
+        navTitle: String,
+        setBackButton: Bool = false,
+        tag: String,
+        navigation: (any Router)? = nil,
+        content: ViewContent
+    ) {
         self.tag = tag
         self.isNeedBackButton = setBackButton
         self.navigation = navigation
@@ -28,14 +38,14 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
         title = navTitle
     }
     
-    @available(*, deprecated, message: "use init() instead.")
-    required init?(coder _: NSCoder) {
+    @available(*, deprecated, message: "use init with params instead.")
+    public required init?(coder _: NSCoder) {
         return nil
     }
     
     // MARK: - Lifecycle
     
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -44,13 +54,13 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         cleanBackNavigationButton()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if isBeingDismissed || isMovingFromParent {
             navigationCallback?()
@@ -59,7 +69,7 @@ final class HostingController<ViewContent: View>: UIHostingController<ViewConten
     
     // MARK: - DismissCheckable
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard
             gestureRecognizer.isEqual(navigationController?.interactivePopGestureRecognizer)
         else {
