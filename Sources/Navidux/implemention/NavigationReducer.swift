@@ -15,11 +15,6 @@ extension NavigationCoordinator {
             pushNew(screen: controller, style: presentationStyle, animated: true)
             
         case let .pop(payload):
-            guard navigationController.screens.count != 1 else {
-                navigationController.topScreen?.dismiss(animated: true, completion: nil)
-                print("Navigation Coordinator can't pop last screen")
-                return
-            }
             popLast(animated: true)
             if let topScreen = navigationController.topScreen {
                 topScreen.gotUpdatedData(payload)

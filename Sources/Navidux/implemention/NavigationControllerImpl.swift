@@ -56,6 +56,10 @@ public final class NavigationControllerImpl: UINavigationController, NavigationC
     }
     
     public func removeLastFromStack() {
+        guard screens.count != 1 else {
+            print("Navigation Coordinator can't pop last screen")
+            return
+        }
         screens.removeLast()
     }
     

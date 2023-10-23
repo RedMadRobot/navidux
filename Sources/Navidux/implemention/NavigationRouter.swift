@@ -24,7 +24,7 @@ extension NavigationCoordinator {
             }
             state.hasOverlay = true
             
-        // TODO: - Уточнить на встрече про SheetViewController
+        // TODO: - Допилить SheetViewController
         case let .bottomSheet(size):
             screen.isModal = true
             let sheetController = screen

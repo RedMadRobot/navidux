@@ -32,7 +32,7 @@ final class NavigationControllerTests: XCTestCase {
         
         navigation.removeLastFromStack()
         
-        XCTAssertTrue(navigation.screens.isEmpty)
+        XCTAssertTrue(navigation.screens.count == 1)
     }
     
     func test_removeTillFromStack_removeLastToScreens() {
