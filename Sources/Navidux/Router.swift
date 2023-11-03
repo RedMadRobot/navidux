@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 /// Main Object that used in navigation. Have many different types of presentation and inner methods to manipulate navigation stack.
 /// Work on states with associated values.
@@ -7,4 +8,5 @@ public protocol Router: AnyObject {
     func route(with action: Navigation.Action)
     func findCertain(controller: NaviduxScreen) -> (any NavigationScreen)?
     func findFirstCertain(controller: NaviduxScreen) -> (any NavigationScreen)?
+    func presentSFSafaryViewController(url: URL, delegate: SFSafariViewControllerDelegate?)
 }
