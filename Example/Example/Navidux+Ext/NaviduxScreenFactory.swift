@@ -30,6 +30,12 @@ extension Navidux.ScreenFactory {
             return viewController
         }
     }
+    
+    var thirdScreenFactory: (NavigationCoordinator?, ScreenConfig) -> any NavigationScreen {
+        { coordinator, screenConfig in
+            ThirdContentViewController()
+        }
+    }
 }
 
 final class NaviduxScreenFactory: Navidux.ScreenFactory {

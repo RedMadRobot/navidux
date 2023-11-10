@@ -18,8 +18,14 @@ struct SecondContentView: View {
             )
             .padding(.top, 40)
             ButtonView(
-                action: {},
-                title: "Move to second screen"
+                action: { [weak navigation] in
+                    navigation?.route(with: .push(
+                        .thirdScreen,
+                        ScreenConfig(),
+                        .bottomSheet(.auto)
+                    ))
+                },
+                title: "Present bottom sheet"
             )
         }
         .padding()

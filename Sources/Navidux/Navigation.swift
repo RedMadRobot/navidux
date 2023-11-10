@@ -11,7 +11,7 @@ public enum Navigation: Equatable {
     public enum PresentationStyle {
         case fullscreen
         case modal
-        case bottomSheet([BottomSheetSize])
+        case bottomSheet(BottomSheetSize)
         case custom(UIViewControllerTransitioningDelegate)
     }
 

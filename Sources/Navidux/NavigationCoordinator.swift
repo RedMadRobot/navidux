@@ -2,6 +2,7 @@ public final class NavigationCoordinator: Router {
     var navigationController: NavigationController
     var screenAssembler: ScreenAssembler
     public var state: NavigationStore
+    let bottomSheetTransitioningDelegate = BSTransitioningDelegate()
 
     public init(
         _ controller: NavigationController,
