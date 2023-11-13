@@ -1,3 +1,6 @@
+import Foundation
+import SafariServices
+
 ///Proxy give possibility to create `ScreenAssembler` that nessasary for `NavigationCoordinator`.
 ///Usage: after declaration `NavigationCoordinatorProxy` you can create `ScreenAssembler`.
 ///Next step to create real `Router`. And last stage is set subject property as real `Router`.
@@ -36,5 +39,9 @@ public final class NavigationCoordinatorProxy: Router {
     
     public func findFirstCertain(controller: NaviduxScreen) -> (any NavigationScreen)? {
         subject.findFirstCertain(controller: controller)
+    }
+    
+    public func presentSFSafaryViewController(url: URL, delegate: SFSafariViewControllerDelegate?) {
+        subject.presentSFSafaryViewController(url: url, delegate: delegate)
     }
 }

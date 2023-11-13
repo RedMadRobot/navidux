@@ -1,3 +1,6 @@
+import Foundation
+import SafariServices
+
 extension NavigationCoordinator {
     
     // MARK: - Public methods
@@ -73,6 +76,11 @@ extension NavigationCoordinator {
         findFirstCertain(controller: controller, in: navigationController.screens)
     }
 
+    public func presentSFSafaryViewController(url: URL, delegate: SFSafariViewControllerDelegate?) {
+        let controller = screenAssembler.assemblySFSafaryViewController(url: url, delegate: delegate)
+        presentSFSafaryViewController(controller, animated: true)
+    }
+    
     // MARK: - Private methods
     
     private func findCertain(

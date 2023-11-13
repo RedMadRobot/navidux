@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 extension NavigationCoordinator {
     
@@ -103,6 +104,15 @@ extension NavigationCoordinator {
         }
 
         navigationController.rebuildNavStack(with: screens)
+    }
+    
+    func presentSFSafaryViewController(_ controller: SFSafariViewController, animated: Bool) {
+        if state.hasOverlay {
+            navigationController.topScreen?.present(controller, animated: animated, completion: nil)
+        } else {
+            navigationController.present(controller, animated: animated, completion: nil)
+        }
+        state.hasOverlay = true
     }
     
     // MARK: - Private methods
