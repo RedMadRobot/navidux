@@ -16,7 +16,7 @@ open class PullBar: UIView {
     private let iconSize: CGSize
     private let pullBarBackgroundColor: UIColor
     
-    private lazy var imageView = UIImageView(image: icon) // TODO: Добавить нужное изображение для иконки пуллбара
+    private lazy var imageView = UIImageView(image: icon)
     
     public init(
         topCornerRadius: Int = 20,
