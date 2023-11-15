@@ -25,7 +25,37 @@ struct SecondContentView: View {
                         .bottomSheet(.auto)
                     ))
                 },
-                title: "Present bottom sheet"
+                title: "Present bottom sheet - auto"
+            )
+            ButtonView(
+                action: { [weak navigation] in
+                    navigation?.route(with: .push(
+                        .thirdScreen,
+                        ScreenConfig(),
+                        .bottomSheet(.fixed(120))
+                    ))
+                },
+                title: "Present bottom sheet - fixed height"
+            )
+            ButtonView(
+                action: { [weak navigation] in
+                    navigation?.route(with: .push(
+                        .thirdScreen,
+                        ScreenConfig(),
+                        .bottomSheet(.fullScreen)
+                    ))
+                },
+                title: "Present bottom sheet - full screen"
+            )
+            ButtonView(
+                action: { [weak navigation] in
+                    navigation?.route(with: .push(
+                        .thirdScreen,
+                        ScreenConfig(),
+                        .bottomSheet(.halfScreen)
+                    ))
+                },
+                title: "Present bottom sheet - half screen"
             )
         }
         .padding()
