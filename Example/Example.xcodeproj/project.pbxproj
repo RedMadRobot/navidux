@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F45EBC72AFB701C00A92472 /* ThirdContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F45EBC62AFB701C00A92472 /* ThirdContentViewController.swift */; };
+		4F45EBC92AFB8AD000A92472 /* ThirdContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F45EBC82AFB8AD000A92472 /* ThirdContentTableViewCell.swift */; };
 		E239A3BE2915756C00A03EB6 /* FirstContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E239A3BD2915756C00A03EB6 /* FirstContentView.swift */; };
 		E239A3C02915756D00A03EB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E239A3BF2915756D00A03EB6 /* Assets.xcassets */; };
 		E239A3CC291578A500A03EB6 /* Navidux in Frameworks */ = {isa = PBXBuildFile; productRef = E239A3CB291578A500A03EB6 /* Navidux */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F45EBC62AFB701C00A92472 /* ThirdContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdContentViewController.swift; sourceTree = "<group>"; };
+		4F45EBC82AFB8AD000A92472 /* ThirdContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdContentTableViewCell.swift; sourceTree = "<group>"; };
 		E239A3B82915756C00A03EB6 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E239A3BD2915756C00A03EB6 /* FirstContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstContentView.swift; sourceTree = "<group>"; };
 		E239A3BF2915756D00A03EB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,13 +50,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3557978C2ADE834F00B91526 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		E239A3AF2915756C00A03EB6 = {
 			isa = PBXGroup;
 			children = (
@@ -74,7 +71,6 @@
 		E239A3BA2915756C00A03EB6 /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				3557978C2ADE834F00B91526 /* Preview Content */,
 				E239A3DE2916DE4700A03EB6 /* Info.plist */,
 				E239A3D529157A8100A03EB6 /* Navidux+Ext */,
 				E239A3CF291578FD00A03EB6 /* Screens */,
@@ -106,6 +102,8 @@
 				E239A3BD2915756C00A03EB6 /* FirstContentView.swift */,
 				E239A3DF2916E14800A03EB6 /* SecondContentView.swift */,
 				E239A3E12916E38300A03EB6 /* ButtonView.swift */,
+				4F45EBC62AFB701C00A92472 /* ThirdContentViewController.swift */,
+				4F45EBC82AFB8AD000A92472 /* ThirdContentTableViewCell.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -202,6 +200,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F45EBC72AFB701C00A92472 /* ThirdContentViewController.swift in Sources */,
+				4F45EBC92AFB8AD000A92472 /* ThirdContentTableViewCell.swift in Sources */,
 				E239A3E02916E14800A03EB6 /* SecondContentView.swift in Sources */,
 				E239A3D1291579FB00A03EB6 /* AppDelegate.swift in Sources */,
 				E239A3E22916E38300A03EB6 /* ButtonView.swift in Sources */,
@@ -338,7 +338,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Example/Preview Content\"";
-				DEVELOPMENT_TEAM = M2825G3R38;
+				DEVELOPMENT_TEAM = 7898RN388J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Example/Info.plist;
@@ -366,7 +366,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Example/Preview Content\"";
-				DEVELOPMENT_TEAM = M2825G3R38;
+				DEVELOPMENT_TEAM = 7898RN388J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Example/Info.plist;

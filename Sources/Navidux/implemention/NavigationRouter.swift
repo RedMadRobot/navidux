@@ -28,12 +28,29 @@ extension NavigationCoordinator {
         // TODO: - Допилить SheetViewController
         case let .bottomSheet(size):
             screen.isModal = true
-            let sheetController = screen
-            sheetController.navigationCallback = { [weak self, weak screen] in
+            screen.navigationCallback = { [weak self, weak screen] in
                 self?.modalControllerDismissed(screenTag: screen?.tag)
             }
             state.hasOverlay = true
-            navigationController.present(sheetController, animated: false, completion: nil)
+            
+            switch size {
+            case .auto:
+                bottomSheetTransitioningDelegate.sheetSize = .auto
+                screen.transitioningDelegate = bottomSheetTransitioningDelegate
+                screen.modalPresentationStyle = .custom
+            case .fixed(let height):
+                bottomSheetTransitioningDelegate.sheetSize = .fixed(height)
+                screen.transitioningDelegate = bottomSheetTransitioningDelegate
+                screen.modalPresentationStyle = .custom
+            case .halfScreen:
+                bottomSheetTransitioningDelegate.sheetSize = .halfScreen
+                screen.transitioningDelegate = bottomSheetTransitioningDelegate
+                screen.modalPresentationStyle = .custom
+            case .fullScreen:
+                screen.modalPresentationStyle = .formSheet
+            }
+            
+            navigationController.present(screen, animated: true, completion: nil)
             
         // TODO: - Реализовать
         case let .custom(delegate):

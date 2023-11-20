@@ -21,6 +21,8 @@ public final class NaviduxScreenAssembler: Navidux.ScreenAssembler {
             return screenFactory.firstScreenFactory(screenCoordinator?.subject, config)
         case .secondScreen:
             return screenFactory.secondScreenFactory(screenCoordinator?.subject, config)
+        case .thirdScreen:
+            return screenFactory.thirdScreenFactory(screenCoordinator?.subject, config)
         default:
             return ViewController(navigation: nil)
         }

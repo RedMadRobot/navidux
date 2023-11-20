@@ -16,7 +16,8 @@ let package = Package(
     targets: [
         .target(
             name: "Navidux",
-            dependencies: []
+            dependencies: [],
+            resources: [.process("resources/Media.xcassets")]
         ),
         .testTarget(
             name: "NaviduxTests",
