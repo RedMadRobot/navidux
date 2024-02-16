@@ -165,8 +165,7 @@ extension NavigationCoordinator {
     }
     
     private func checkEquality(lhs: [any NavigationScreen], rhs: [any NavigationScreen]) -> Bool {
-        guard lhs.count == rhs.count else { return false }
-        return Set(lhs.map { $0.tag }) == Set(rhs.map { $0.tag })
+        return lhs.map { $0.tag } == rhs.map { $0.tag }
     }
     
     private func modalControllerDismissed(screenTag: String?) {
