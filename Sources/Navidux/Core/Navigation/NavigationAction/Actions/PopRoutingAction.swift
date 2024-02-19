@@ -1,5 +1,5 @@
 //
-//  PopRoutingAction.swift
+//  PopNavigationAction.swift
 //
 //
 //  Created by Tamerlan Satualdypov on 13.02.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct PopRoutingAction: RoutingAction {
+public struct PopNavigationAction: NavigationAction {
     private let screenClass: UIViewController.Type?
     
     init(screenClass: UIViewController.Type?) {
@@ -27,7 +27,7 @@ public struct PopRoutingAction: RoutingAction {
     }
 }
 
-public extension RoutingAction where Self == PopRoutingAction {
+public extension NavigationAction where Self == PopNavigationAction {
     static var pop: Self {
         return .init(screenClass: nil)
     }

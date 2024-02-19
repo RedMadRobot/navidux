@@ -1,5 +1,5 @@
 //
-//  PushRoutingAction.swift
+//  PushNavigationAction.swift
 //
 //
 //  Created by Tamerlan Satualdypov on 13.02.2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PushRoutingAction: RoutingAction {
+public struct PushNavigationAction: NavigationAction {
     public enum PresentationStyle {
         case fullScreen
         case modal
@@ -32,7 +32,7 @@ public struct PushRoutingAction: RoutingAction {
     }
 }
 
-public extension RoutingAction where Self == PushRoutingAction {
+public extension NavigationAction where Self == PushNavigationAction {
     static func push(_ module: Module, as presentationStyle: Self.PresentationStyle) -> Self {
         return .init(module: module, presentationStyle: presentationStyle)
     }

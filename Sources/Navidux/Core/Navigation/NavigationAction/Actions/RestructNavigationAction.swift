@@ -1,13 +1,13 @@
 //
-//  File.swift
-//  
+//  RestructNavigationAction.swift
+//
 //
 //  Created by Tamerlan Satualdypov on 19.02.2024.
 //
 
 import UIKit
 
-public struct RestructRoutingAction: RoutingAction {
+public struct RestructNavigationAction: NavigationAction {
     public enum AnimationType {
         case forward
         case backward
@@ -42,8 +42,8 @@ public struct RestructRoutingAction: RoutingAction {
     }
 }
 
-public extension RoutingAction where Self == RestructRoutingAction {
-    static func restruct(with modules: [Module], animation: RestructRoutingAction.AnimationType) -> Self {
+public extension NavigationAction where Self == RestructNavigationAction {
+    static func restruct(with modules: [Module], animation: Self.AnimationType) -> Self {
         return .init(modules: modules, animationType: animation)
     }
 }

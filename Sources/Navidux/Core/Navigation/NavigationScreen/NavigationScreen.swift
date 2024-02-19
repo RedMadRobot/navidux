@@ -1,7 +1,7 @@
 import UIKit
 
 /// Main element of Navigation on Redux (Navidux). Uses for store/move screens in navigation stack.
-public protocol NavigationScreen: UIViewController, AnyObject, NavigationRestructable where Self: Equatable {
+public protocol NavigationScreen: UIViewController, AnyObject {
     /// - **tag**: The unique tag of the screen. Use for search in nav stack. Can be set on screen setup.
     var tag: String { get set }
     /// - **isModal**: property indicates that screen will be present as modal or not. Edited only from NavigationRouter.

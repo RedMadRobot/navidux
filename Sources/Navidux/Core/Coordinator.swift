@@ -15,13 +15,13 @@ public final class Coordinator {
         if let navigationController = navigationController {
             self.navigationController = navigationController
         } else {
-            self.navigationController = NavigationControllerImpl()
+            self.navigationController = DefaultNavigationController()
         }
         
         self.dependencyContainer = .init()
     }
     
-    public func perform(action: RoutingAction) {
+    public func perform(action: NavigationAction) {
         action.perform(on: self)
     }
 }
