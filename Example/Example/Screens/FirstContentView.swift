@@ -24,8 +24,8 @@ struct FirstContentView: View {
 }
 
 struct FirstContentModule: Module {
-    func assembly(using coordinator: Coordinator) -> UIViewController {
-        return UIHostingController(rootView: FirstContentView(navigation: coordinator))
+    func assembly(using coordinator: Coordinator) -> any NavigationScreen {
+        return HostingController(rootView: FirstContentView(navigation: coordinator))
     }
 }
 

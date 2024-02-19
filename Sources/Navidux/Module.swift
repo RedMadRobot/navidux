@@ -8,5 +8,5 @@
 import UIKit
 
 public protocol Module {
-    func assembly(using coordinator: Coordinator) -> UIViewController
+    func assembly(using coordinator: Coordinator) -> any NavigationScreen
 }

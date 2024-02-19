@@ -99,7 +99,7 @@ extension ThirdContentViewController: UITableViewDelegate {
 }
 
 struct ThirdContent: Module {
-    func assembly(using coordinator: Coordinator) -> UIViewController {
+    func assembly(using coordinator: Coordinator) -> any NavigationScreen {
         return ThirdContentViewController()
     }
 }

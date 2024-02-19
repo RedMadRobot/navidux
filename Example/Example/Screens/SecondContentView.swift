@@ -48,8 +48,8 @@ struct SecondContentView: View {
 }
 
 struct SecondContentModule: Module {
-    func assembly(using coordinator: Coordinator) -> UIViewController {
-        return UIHostingController(rootView: SecondContentView(navigation: coordinator))
+    func assembly(using coordinator: Coordinator) -> any NavigationScreen {
+        return HostingController(rootView: SecondContentView(navigation: coordinator))
     }
 }
 

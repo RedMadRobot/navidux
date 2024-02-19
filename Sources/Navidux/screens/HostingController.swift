@@ -21,10 +21,10 @@ public final class HostingController<ViewContent: View>: UIHostingController<Vie
     // MARK: - Init
     
     public init(
-        title: String,
-        isNeedBackButton: Bool,
-        tag: String,
-        navigation: (any Router)?,
+        title: String = "",
+        isNeedBackButton: Bool = true,
+        tag: String = UUID().uuidString,
+        navigation: (any Router)? = nil,
         content: ViewContent,
         output: @escaping (NullablePayload) -> Void = { _ in }
     ) {
