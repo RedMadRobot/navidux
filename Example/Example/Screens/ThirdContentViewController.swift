@@ -97,3 +97,15 @@ extension ThirdContentViewController: UITableViewDelegate {
         40
     }
 }
+
+struct ThirdContent: Module {
+    func assembly(using coordinator: Coordinator) -> UIViewController {
+        return ThirdContentViewController()
+    }
+}
+
+extension Module where Self == ThirdContent {
+    static var third: Self {
+        return .init()
+    }
+}
