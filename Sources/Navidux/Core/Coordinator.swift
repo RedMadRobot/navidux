@@ -12,13 +12,8 @@ public final class Coordinator {
     public var dependencyContainer: DependencyContainer
     
     public init(navigationController: NavigationController? = nil) {
-        if let navigationController = navigationController {
-            self.navigationController = navigationController
-        } else {
-            self.navigationController = DefaultNavigationController()
-        }
-        
-        self.dependencyContainer = .init()
+        self.navigationController = navigationController ?? BaseNavigationController()
+        self.dependencyContainer = DependencyContainer()
     }
     
     public func perform(action: NavigationAction) {

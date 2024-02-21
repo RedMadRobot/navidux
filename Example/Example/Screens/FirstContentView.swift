@@ -31,6 +31,6 @@ struct FirstContentModule: Module {
 
 extension Module where Self == FirstContentModule {
     static var first: Self {
-        return .init()
+        return FirstContentModule()
     }
 }

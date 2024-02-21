@@ -44,6 +44,6 @@ public struct RestructNavigationAction: NavigationAction {
 
 public extension NavigationAction where Self == RestructNavigationAction {
     static func restruct(with modules: [Module], animation: Self.AnimationType) -> Self {
-        return .init(modules: modules, animationType: animation)
+        return RestructNavigationAction(modules: modules, animationType: animation)
     }
 }

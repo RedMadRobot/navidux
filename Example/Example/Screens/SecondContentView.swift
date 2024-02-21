@@ -55,6 +55,6 @@ struct SecondContentModule: Module {
 
 extension Module where Self == SecondContentModule {
     static var second: Self {
-        return .init()
+        return SecondContentModule()
     }
 }

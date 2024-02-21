@@ -23,7 +23,7 @@ open class ViewController: UIViewController,
         title: String = "",
         isNeedBackButton: Bool = true,
         coordinator: Coordinator? = nil,
-        tag: String = UUID().uuidString,
+        tag: String = String(describing: ViewController.self) + UUID().uuidString,
         output: @escaping (NullablePayload) -> Void = { _ in }
     ) {
         self.coordinator = coordinator

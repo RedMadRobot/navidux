@@ -23,7 +23,7 @@ public final class HostingController<ViewContent: View>: UIHostingController<Vie
     public init(
         title: String = "",
         isNeedBackButton: Bool = true,
-        tag: String = UUID().uuidString,
+        tag: String = String(describing: HostingController.self) + UUID().uuidString,
         coordinator: Coordinator? = nil,
         content: ViewContent,
         output: @escaping (NullablePayload) -> Void = { _ in }

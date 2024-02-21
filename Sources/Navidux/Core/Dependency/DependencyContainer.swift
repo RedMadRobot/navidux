@@ -14,7 +14,11 @@ public final class DependencyContainer {
         self.values["\(type)"] = builder()
     }
     
-    func resolve<T>(_ type: T.Type) -> T? {
-        return self.values["\(type)"] as? T
+    func resolve<T>(_ type: T.Type) -> T {
+        guard let value = self.values["\(type)"] as? T else {
+            fatalError("[Navidux]: \(String(describing: type)) not registered in the DependencyContainer!")
+        }
+        
+        return value
     }
 }
