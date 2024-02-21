@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 
-        let navigation = DefaultNavigationController { controller in
+        let navigation = BaseNavigationController { controller in
             controller.view.backgroundColor = .green
             controller.navigationBar.isTranslucent = false
             controller.navigationBar.backgroundColor = .green
