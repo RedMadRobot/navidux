@@ -106,6 +106,6 @@ struct ThirdContent: Module {
 
 extension Module where Self == ThirdContent {
     static var third: Self {
-        return .init()
+        return ThirdContent()
     }
 }
