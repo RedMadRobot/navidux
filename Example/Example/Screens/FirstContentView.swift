@@ -2,7 +2,7 @@ import Navidux
 import SwiftUI
 
 struct FirstContentView: View {
-    let navigation: NavigationCoordinator?
+    let navigation: Coordinator?
     
     var body: some View {
         VStack(spacing: 8) {
@@ -12,13 +12,7 @@ struct FirstContentView: View {
             Text("Hello, world!")
             ButtonView(
                 action: { [weak navigation] in
-                    navigation?.route(with:
-                            .push(
-                                .secondScreen,
-                                ScreenConfig(navigationTitle: "Second Screen"),
-                                .fullscreen
-                            )
-                    )
+                    navigation?.perform(action: .push(.second, as: .fullScreen))
                 },
                 title: "Open fullscreen second screen"
             )
@@ -29,8 +23,14 @@ struct FirstContentView: View {
     }
 }
 
-struct FirstContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        FirstContentView(navigation: nil)
+struct FirstContentModule: Module {
+    func assembly(using coordinator: Coordinator) -> any NavigationScreen {
+        return HostingController(rootView: FirstContentView(navigation: coordinator))
+    }
+}
+
+extension Module where Self == FirstContentModule {
+    static var first: Self {
+        return FirstContentModule()
     }
 }

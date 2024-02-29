@@ -2,7 +2,7 @@ import Navidux
 import SwiftUI
 
 struct SecondContentView: View {
-    let navigation: NavigationCoordinator?
+    let navigation: Coordinator?
     
     var body: some View {
         VStack(spacing: 8) {
@@ -12,48 +12,32 @@ struct SecondContentView: View {
             Text("Hello, world!")
             ButtonView(
                 action: { [weak navigation] in
-                    navigation?.route(with: .pop(nil))
+                    navigation?.perform(action: .pop)
                 },
                 title: "Back"
             )
             .padding(.top, 40)
             ButtonView(
                 action: { [weak navigation] in
-                    navigation?.route(with: .push(
-                        .thirdScreen,
-                        ScreenConfig(),
-                        .bottomSheet(.auto)
-                    ))
+                    // Bottom Sheet
                 },
                 title: "Present bottom sheet - auto"
             )
             ButtonView(
                 action: { [weak navigation] in
-                    navigation?.route(with: .push(
-                        .thirdScreen,
-                        ScreenConfig(),
-                        .bottomSheet(.fixed(120))
-                    ))
+                    // Bottom Sheet with fixed height
                 },
                 title: "Present bottom sheet - fixed height"
             )
             ButtonView(
                 action: { [weak navigation] in
-                    navigation?.route(with: .push(
-                        .thirdScreen,
-                        ScreenConfig(),
-                        .bottomSheet(.fullScreen)
-                    ))
+                    // Bottom Sheet with full screen
                 },
                 title: "Present bottom sheet - full screen"
             )
             ButtonView(
                 action: { [weak navigation] in
-                    navigation?.route(with: .push(
-                        .thirdScreen,
-                        ScreenConfig(),
-                        .bottomSheet(.halfScreen)
-                    ))
+                    // Bottom Sheet with half screen
                 },
                 title: "Present bottom sheet - half screen"
             )
@@ -63,8 +47,14 @@ struct SecondContentView: View {
     }
 }
 
-struct SecondContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        SecondContentView(navigation: nil)
+struct SecondContentModule: Module {
+    func assembly(using coordinator: Coordinator) -> any NavigationScreen {
+        return HostingController(rootView: SecondContentView(navigation: coordinator))
+    }
+}
+
+extension Module where Self == SecondContentModule {
+    static var second: Self {
+        return SecondContentModule()
     }
 }

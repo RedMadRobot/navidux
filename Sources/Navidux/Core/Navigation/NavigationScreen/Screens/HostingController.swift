@@ -1,50 +1,52 @@
+import SwiftUI
 import UIKit
 
-open class ViewController: UIViewController,
-                           NavigationScreen,
-                           DismissCheckable,
-                           UIGestureRecognizerDelegate {
+public final class HostingController<ViewContent: View>: UIHostingController<ViewContent>,
+                                                  NavigationScreen,
+                                                  DismissCheckable,
+                                                  UIGestureRecognizerDelegate {
     
     // MARK: - Public properties
     
     public var tag: String
     public var isModal: Bool = false
-    public weak var navigation: (any Router)?
+    public weak var coordinator: Coordinator?
     public var navigationCallback: (() -> Void)? = nil
     public var onBackCallback: () -> Void
     public var backButtonImage: UIImage? = UIImage(systemName: "chevron.backward")
     public var isNeedBackButton: Bool
-    open var dataToSendFromModal: NullablePayload = nil
-    public var output: ((NullablePayload) -> Void)
+    public var dataToSendFromModal: NullablePayload = nil
+    public var output: (NullablePayload) -> Void
     
     // MARK: - Init
     
     public init(
         title: String = "",
         isNeedBackButton: Bool = true,
-        navigation: (any Router)? = nil,
-        tag: String = UUID().uuidString,
+        tag: String = String(describing: HostingController.self) + UUID().uuidString,
+        coordinator: Coordinator? = nil,
+        content: ViewContent,
         output: @escaping (NullablePayload) -> Void = { _ in }
     ) {
-        self.navigation = navigation
         self.tag = tag
+        self.coordinator = coordinator
         self.isNeedBackButton = isNeedBackButton
-        self.onBackCallback = { [weak navigation] in
-            navigation?.route(with: .pop(nil))
+        self.onBackCallback = { [weak coordinator] in
+            coordinator?.perform(action: .pop)
         }
         self.output = output
-        super.init(nibName: nil, bundle: nil)
+        super.init(rootView: content)
         self.title = title
     }
     
-    @available(*, deprecated, message: "use init() instead.")
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @available(*, deprecated, message: "use init with params instead.")
+    public required init?(coder _: NSCoder) {
+        return nil
     }
     
     // MARK: - Lifecycle
 
-    open override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isNeedBackButton {
             configureNavigationBackButton(#selector(onBack))
@@ -53,18 +55,17 @@ open class ViewController: UIViewController,
         }
     }
     
-    open override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
-    open override func viewDidDisappear(_ animated: Bool) {
+    public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if isNeedBackButton {
             cleanBackNavigationButton()
         }
     }
-    
     
     // MARK: - Public methods
     
@@ -85,8 +86,6 @@ open class ViewController: UIViewController,
         onBackCallback()
     }
     
-    open func gotUpdatedData(_ payload: NullablePayload) {
-        //HINT: Do some action on getted response from previous screen
-        debugPrint("Screen recieved data: \(String(describing: payload))")
-    }
+    // TODO: - Подумать как использовать
+    public func gotUpdatedData(_ payload: NullablePayload) {}
 }

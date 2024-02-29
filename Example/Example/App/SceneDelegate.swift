@@ -4,7 +4,9 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
+    private var coordinator: Coordinator!
+    
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
@@ -14,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 
-        let navigation = NavigationControllerImpl { controller in
+        let navigation = BaseNavigationController { controller in
             controller.view.backgroundColor = .green
             controller.navigationBar.isTranslucent = false
             controller.navigationBar.backgroundColor = .green
@@ -25,31 +27,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 NSAttributedString.Key.foregroundColor: UIColor.black
             ]
         }
-        let screenFactory = NaviduxScreenFactory()
-        let alertFactory = AlertFactoryImpl()
-        let navigationCoordinatorProxy = NavigationCoordinatorProxy()
-        let screenAssembler = NaviduxScreenAssembler(
-            screenFactory: screenFactory,
-            alertFactory: alertFactory,
-            screenCoordinator: navigationCoordinatorProxy
-        )
-        let navigationCoordinator = NavigationCoordinator(
-            navigation,
-            screenAssembler: screenAssembler
-        )
-        navigationCoordinatorProxy.subject = navigationCoordinator
-        navigationCoordinatorProxy.route(
-            with: .push(
-                .firstScreen,
-                ScreenConfig(navigationTitle: "First screen", isNeedSetBackButton: false),
-                .fullscreen
-            )
-        )
-
+        coordinator = .init(navigationController: navigation)
+        coordinator.perform(action: .push(.first, as: .fullScreen))
+        
         window.rootViewController = navigation
-        self.window = window
         window.makeKeyAndVisible()
         
+        self.window = window
     }
 }
 

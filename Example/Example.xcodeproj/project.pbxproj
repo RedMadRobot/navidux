@@ -14,9 +14,6 @@
 		E239A3CC291578A500A03EB6 /* Navidux in Frameworks */ = {isa = PBXBuildFile; productRef = E239A3CB291578A500A03EB6 /* Navidux */; };
 		E239A3D1291579FB00A03EB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E239A3D0291579FB00A03EB6 /* AppDelegate.swift */; };
 		E239A3D329157A0E00A03EB6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E239A3D229157A0E00A03EB6 /* SceneDelegate.swift */; };
-		E239A3D729157B6F00A03EB6 /* NaviduxScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E239A3D629157B6F00A03EB6 /* NaviduxScreen+Extension.swift */; };
-		E239A3D929157B8600A03EB6 /* NaviduxScreenAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E239A3D829157B8600A03EB6 /* NaviduxScreenAssembler.swift */; };
-		E239A3DB29157B9300A03EB6 /* NaviduxScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E239A3DA29157B9300A03EB6 /* NaviduxScreenFactory.swift */; };
 		E239A3E02916E14800A03EB6 /* SecondContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E239A3DF2916E14800A03EB6 /* SecondContentView.swift */; };
 		E239A3E22916E38300A03EB6 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E239A3E12916E38300A03EB6 /* ButtonView.swift */; };
 /* End PBXBuildFile section */
@@ -29,9 +26,6 @@
 		E239A3BF2915756D00A03EB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E239A3D0291579FB00A03EB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E239A3D229157A0E00A03EB6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E239A3D629157B6F00A03EB6 /* NaviduxScreen+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NaviduxScreen+Extension.swift"; sourceTree = "<group>"; };
-		E239A3D829157B8600A03EB6 /* NaviduxScreenAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaviduxScreenAssembler.swift; sourceTree = "<group>"; };
-		E239A3DA29157B9300A03EB6 /* NaviduxScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaviduxScreenFactory.swift; sourceTree = "<group>"; };
 		E239A3DE2916DE4700A03EB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E239A3DF2916E14800A03EB6 /* SecondContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondContentView.swift; sourceTree = "<group>"; };
 		E239A3E12916E38300A03EB6 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
@@ -72,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				E239A3DE2916DE4700A03EB6 /* Info.plist */,
-				E239A3D529157A8100A03EB6 /* Navidux+Ext */,
 				E239A3CF291578FD00A03EB6 /* Screens */,
 				E239A3CE291578F100A03EB6 /* App */,
 				E239A3BF2915756D00A03EB6 /* Assets.xcassets */,
@@ -106,16 +99,6 @@
 				4F45EBC82AFB8AD000A92472 /* ThirdContentTableViewCell.swift */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		E239A3D529157A8100A03EB6 /* Navidux+Ext */ = {
-			isa = PBXGroup;
-			children = (
-				E239A3D629157B6F00A03EB6 /* NaviduxScreen+Extension.swift */,
-				E239A3D829157B8600A03EB6 /* NaviduxScreenAssembler.swift */,
-				E239A3DA29157B9300A03EB6 /* NaviduxScreenFactory.swift */,
-			);
-			path = "Navidux+Ext";
 			sourceTree = "<group>";
 		};
 		E2D206242AB32DB30066EE5D /* Packages */ = {
@@ -206,10 +189,7 @@
 				E239A3D1291579FB00A03EB6 /* AppDelegate.swift in Sources */,
 				E239A3E22916E38300A03EB6 /* ButtonView.swift in Sources */,
 				E239A3BE2915756C00A03EB6 /* FirstContentView.swift in Sources */,
-				E239A3DB29157B9300A03EB6 /* NaviduxScreenFactory.swift in Sources */,
-				E239A3D929157B8600A03EB6 /* NaviduxScreenAssembler.swift in Sources */,
 				E239A3D329157A0E00A03EB6 /* SceneDelegate.swift in Sources */,
-				E239A3D729157B6F00A03EB6 /* NaviduxScreen+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,7 +317,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Example/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 7898RN388J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -365,7 +345,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Example/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 7898RN388J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

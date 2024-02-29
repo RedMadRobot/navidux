@@ -2,8 +2,6 @@
 import UIKit
 
 final class BSPresentationController: UIPresentationController {
-    
-    public var sheetSize: Navigation.BottomSheetSize = .auto
 
     private lazy var dimmView: UIView = {
         let view = UIView()
@@ -54,29 +52,6 @@ final class BSPresentationController: UIPresentationController {
             dimmView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ]
         
-        switch sheetSize {
-        case .fixed(let height):
-            constraints.append(
-                presentedView.heightAnchor.constraint(equalToConstant: height)
-            )
-        case .halfScreen:
-            constraints.append(
-                presentedView.heightAnchor.constraint(
-                    lessThanOrEqualTo: containerView.heightAnchor,
-                    constant: -(containerView.bounds.height / 2)
-                )
-            )
-        case .auto:
-            constraints.append(
-                presentedView.heightAnchor.constraint(
-                    lessThanOrEqualTo: containerView.heightAnchor,
-                    constant: -containerView.safeAreaInsets.top
-                )
-            )
-        case .fullScreen:
-            break
-        }
-
         NSLayoutConstraint.activate(constraints)
     }
     

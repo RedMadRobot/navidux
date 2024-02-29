@@ -2,7 +2,7 @@
 import XCTest
 
 final class NavigationControllerTests: XCTestCase {
-    let navigation = NavigationControllerImpl()
+    let navigation = BaseNavigationController()
     
     func test_Init_withZeroScreens() {
         XCTAssertTrue(navigation.screens.isEmpty)

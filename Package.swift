@@ -11,13 +11,14 @@ let package = Package(
             targets: ["Navidux"]
         ),
     ],
-    dependencies: [
-    ],
+    dependencies: [],
     targets: [
         .target(
             name: "Navidux",
             dependencies: [],
-            resources: [.process("resources/Media.xcassets")]
+            resources: [
+                .process("Resources/Media.xcassets")
+            ]
         ),
         .testTarget(
             name: "NaviduxTests",

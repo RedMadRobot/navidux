@@ -1,6 +1,6 @@
 import UIKit
 
-public final class NavigationControllerImpl: UINavigationController, NavigationController {
+public final class BaseNavigationController: UINavigationController, NavigationController {
    
     // MARK: - Private properties
     
