@@ -37,6 +37,7 @@ public struct PushNavigationAction: NavigationAction {
         case .fullScreen:
             coordinator.navigationController.pushViewController(screen, animated: self.animated)
         case .modal(let completion):
+            coordinator.store.hasOverlay = true
             coordinator.navigationController.present(screen, animated: self.animated, completion: completion)
         case .bottomSheet(let size, let completion):
             switch size {
@@ -56,6 +57,7 @@ public struct PushNavigationAction: NavigationAction {
                 screen.modalPresentationStyle = .formSheet
             }
             
+            coordinator.store.hasOverlay = true
             coordinator.navigationController.present(screen, animated: self.animated, completion: completion)
         }
     }
@@ -63,6 +65,6 @@ public struct PushNavigationAction: NavigationAction {
 
 public extension NavigationAction where Self == PushNavigationAction {
     static func push(_ module: Module, as presentationStyle: Self.PresentationStyle = .fullScreen, animated: Bool = true) -> Self {
-        return PushNavigationAction(module: module, presentationStyle: presentationStyle, animated: animated)
+        PushNavigationAction(module: module, presentationStyle: presentationStyle, animated: animated)
     }
 }

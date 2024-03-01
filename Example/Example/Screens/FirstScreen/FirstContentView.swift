@@ -17,6 +17,12 @@ struct FirstContentView: View {
                 title: "Open fullscreen second screen"
             )
             .padding(.top, 40)
+            ButtonView(
+                action: { [weak navigation] in
+                    navigation?.perform(action: .push(.second, as: .bottomSheet(.auto, completion: nil)))
+                },
+                title: "Open second as bottom sheet"
+            )
         }
         .padding()
         .navigationBarBackButtonHidden()
@@ -25,7 +31,12 @@ struct FirstContentView: View {
 
 struct FirstContentModule: Module {
     func assembly(using coordinator: Coordinator) -> any NavigationScreen {
-        HostingController(content: FirstContentView(navigation: coordinator))
+        HostingController(
+            title: "First",
+            isNeedBackButton: false,
+            coordinator: coordinator,
+            content: FirstContentView(navigation: coordinator)
+        )
     }
 }
 

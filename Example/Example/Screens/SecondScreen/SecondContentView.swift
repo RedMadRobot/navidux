@@ -49,7 +49,11 @@ struct SecondContentView: View {
 
 struct SecondContentModule: Module {
     func assembly(using coordinator: Coordinator) -> any NavigationScreen {
-        HostingController(content: SecondContentView(navigation: coordinator))
+        HostingController(
+            title: "Second",
+            coordinator: coordinator,
+            content: SecondContentView(navigation: coordinator)
+        )
     }
 }
 

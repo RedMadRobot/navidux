@@ -21,7 +21,12 @@ public struct PopNavigationAction: NavigationAction {
             let screenClass,
             let screen = coordinator.navigationController.screens.last(where: { $0.isKind(of: screenClass) })
         else {
-            coordinator.navigationController.popViewController(animated: self.animated)
+            if coordinator.store.hasOverlay {
+                coordinator.store.hasOverlay = false
+                coordinator.navigationController.dismiss(animated: self.animated, completion: nil)
+            } else {
+                coordinator.navigationController.popViewController(animated: self.animated)
+            }
             return
         }
         
@@ -31,14 +36,14 @@ public struct PopNavigationAction: NavigationAction {
 
 public extension NavigationAction where Self == PopNavigationAction {
     static var pop: Self {
-        return PopNavigationAction(screenClass: nil, animated: true)
+        PopNavigationAction(screenClass: nil, animated: true)
     }
     
     static func pop(animated: Bool) -> Self {
-        return PopNavigationAction(screenClass: nil, animated: animated)
+        PopNavigationAction(screenClass: nil, animated: animated)
     }
     
     static func popTo(_ screenClass: UIViewController.Type, animated: Bool = true) -> Self {
-        return PopNavigationAction(screenClass: screenClass, animated: animated)
+        PopNavigationAction(screenClass: screenClass, animated: animated)
     }
 }

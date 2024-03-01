@@ -12,10 +12,12 @@ public final class Coordinator {
     
     public var navigationController: NavigationController
     public var dependencyContainer: DependencyContainer
+    public var store: NavigationStore
     
     public init(navigationController: NavigationController? = nil) {
         self.navigationController = navigationController ?? BaseNavigationController()
         self.dependencyContainer = DependencyContainer()
+        self.store = NavigationStore()
     }
     
     public func perform(action: NavigationAction) {
