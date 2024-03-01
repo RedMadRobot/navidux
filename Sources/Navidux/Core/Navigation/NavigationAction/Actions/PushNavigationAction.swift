@@ -11,6 +11,14 @@ public struct PushNavigationAction: NavigationAction {
     public enum PresentationStyle {
         case fullScreen
         case modal(completion: (() -> Void)?)
+        case bottomSheet(BottomSheetSize, completion: (() -> Void)?)
+    }
+    
+    public enum BottomSheetSize {
+        case fixed(CGFloat)
+        case halfScreen
+        case fullScreen
+        case auto
     }
     
     private let module: Module
@@ -29,6 +37,25 @@ public struct PushNavigationAction: NavigationAction {
         case .fullScreen:
             coordinator.navigationController.pushViewController(screen, animated: self.animated)
         case .modal(let completion):
+            coordinator.navigationController.present(screen, animated: self.animated, completion: completion)
+        case .bottomSheet(let size, let completion):
+            switch size {
+            case .auto:
+                coordinator.bottomSheetTransitioningDelegate.sheetSize = .auto
+                screen.transitioningDelegate = coordinator.bottomSheetTransitioningDelegate
+                screen.modalPresentationStyle = .custom
+            case .fixed(let height):
+                coordinator.bottomSheetTransitioningDelegate.sheetSize = .fixed(height)
+                screen.transitioningDelegate = coordinator.bottomSheetTransitioningDelegate
+                screen.modalPresentationStyle = .custom
+            case .halfScreen:
+                coordinator.bottomSheetTransitioningDelegate.sheetSize = .halfScreen
+                screen.transitioningDelegate = coordinator.bottomSheetTransitioningDelegate
+                screen.modalPresentationStyle = .custom
+            case .fullScreen:
+                screen.modalPresentationStyle = .formSheet
+            }
+            
             coordinator.navigationController.present(screen, animated: self.animated, completion: completion)
         }
     }

@@ -8,6 +8,8 @@
 import Foundation
 
 public final class Coordinator {
+    let bottomSheetTransitioningDelegate = BSTransitioningDelegate()
+    
     public var navigationController: NavigationController
     public var dependencyContainer: DependencyContainer
     

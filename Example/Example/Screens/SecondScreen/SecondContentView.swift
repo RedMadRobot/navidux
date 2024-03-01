@@ -19,25 +19,25 @@ struct SecondContentView: View {
             .padding(.top, 40)
             ButtonView(
                 action: { [weak navigation] in
-                    // Bottom Sheet
+                    navigation?.perform(action: .push(.third, as: .bottomSheet(.auto, completion: nil)))
                 },
                 title: "Present bottom sheet - auto"
             )
             ButtonView(
                 action: { [weak navigation] in
-                    // Bottom Sheet with fixed height
+                    navigation?.perform(action: .push(.third, as: .bottomSheet(.fixed(120), completion: nil)))
                 },
                 title: "Present bottom sheet - fixed height"
             )
             ButtonView(
                 action: { [weak navigation] in
-                    // Bottom Sheet with full screen
+                    navigation?.perform(action: .push(.third, as: .bottomSheet(.fullScreen, completion: nil)))
                 },
                 title: "Present bottom sheet - full screen"
             )
             ButtonView(
                 action: { [weak navigation] in
-                    // Bottom Sheet with half screen
+                    navigation?.perform(action: .push(.third, as: .bottomSheet(.halfScreen, completion: nil)))
                 },
                 title: "Present bottom sheet - half screen"
             )
@@ -49,12 +49,12 @@ struct SecondContentView: View {
 
 struct SecondContentModule: Module {
     func assembly(using coordinator: Coordinator) -> any NavigationScreen {
-        return HostingController(rootView: SecondContentView(navigation: coordinator))
+        HostingController(content: SecondContentView(navigation: coordinator))
     }
 }
 
 extension Module where Self == SecondContentModule {
     static var second: Self {
-        return SecondContentModule()
+        SecondContentModule()
     }
 }

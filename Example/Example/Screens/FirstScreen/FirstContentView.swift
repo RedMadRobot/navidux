@@ -25,12 +25,12 @@ struct FirstContentView: View {
 
 struct FirstContentModule: Module {
     func assembly(using coordinator: Coordinator) -> any NavigationScreen {
-        return HostingController(rootView: FirstContentView(navigation: coordinator))
+        HostingController(content: FirstContentView(navigation: coordinator))
     }
 }
 
 extension Module where Self == FirstContentModule {
     static var first: Self {
-        return FirstContentModule()
+        FirstContentModule()
     }
 }
