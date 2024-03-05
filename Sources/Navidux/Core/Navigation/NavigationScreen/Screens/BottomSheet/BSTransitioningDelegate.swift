@@ -4,7 +4,7 @@ import UIKit
 final class BSTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
 
     private var driver: BSTransitionDriver?
-    var sheetSize: PushNavigationAction.BottomSheetSize = .auto
+    var sheetSize: BSSize = .auto
     
     // Cоздаем presentation controller.
     // Он является контейнером для презентуемого контроллера и отвечает за его положение и размеры.

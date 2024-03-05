@@ -3,7 +3,7 @@ import UIKit
 
 final class BSPresentationController: UIPresentationController {
 
-    var sheetSize: PushNavigationAction.BottomSheetSize = .auto
+    var sheetSize: BSSize = .auto
     
     private lazy var dimmView: UIView = {
         let view = UIView()
