@@ -44,6 +44,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		353B5E132B91FCB20085900F /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				E239A3E12916E38300A03EB6 /* ButtonView.swift */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		353B5E142B91FCD20085900F /* FirstScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E239A3BD2915756C00A03EB6 /* FirstContentView.swift */,
+			);
+			path = FirstScreen;
+			sourceTree = "<group>";
+		};
+		353B5E152B91FCE00085900F /* SecondScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E239A3DF2916E14800A03EB6 /* SecondContentView.swift */,
+			);
+			path = SecondScreen;
+			sourceTree = "<group>";
+		};
+		353B5E162B91FECC0085900F /* ThirdScreen */ = {
+			isa = PBXGroup;
+			children = (
+				4F45EBC62AFB701C00A92472 /* ThirdContentViewController.swift */,
+				4F45EBC82AFB8AD000A92472 /* ThirdContentTableViewCell.swift */,
+			);
+			path = ThirdScreen;
+			sourceTree = "<group>";
+		};
 		E239A3AF2915756C00A03EB6 = {
 			isa = PBXGroup;
 			children = (
@@ -65,10 +98,11 @@
 		E239A3BA2915756C00A03EB6 /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				E239A3DE2916DE4700A03EB6 /* Info.plist */,
+				353B5E132B91FCB20085900F /* UIComponents */,
 				E239A3CF291578FD00A03EB6 /* Screens */,
 				E239A3CE291578F100A03EB6 /* App */,
 				E239A3BF2915756D00A03EB6 /* Assets.xcassets */,
+				E239A3DE2916DE4700A03EB6 /* Info.plist */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -92,11 +126,9 @@
 		E239A3CF291578FD00A03EB6 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				E239A3BD2915756C00A03EB6 /* FirstContentView.swift */,
-				E239A3DF2916E14800A03EB6 /* SecondContentView.swift */,
-				E239A3E12916E38300A03EB6 /* ButtonView.swift */,
-				4F45EBC62AFB701C00A92472 /* ThirdContentViewController.swift */,
-				4F45EBC82AFB8AD000A92472 /* ThirdContentTableViewCell.swift */,
+				353B5E142B91FCD20085900F /* FirstScreen */,
+				353B5E152B91FCE00085900F /* SecondScreen */,
+				353B5E162B91FECC0085900F /* ThirdScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

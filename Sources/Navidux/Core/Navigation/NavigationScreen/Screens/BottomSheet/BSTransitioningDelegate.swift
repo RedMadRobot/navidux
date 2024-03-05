@@ -4,7 +4,8 @@ import UIKit
 final class BSTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
 
     private var driver: BSTransitionDriver?
-
+    var sheetSize: BSSize = .auto
+    
     // Cоздаем presentation controller.
     // Он является контейнером для презентуемого контроллера и отвечает за его положение и размеры.
     func presentationController(
@@ -20,6 +21,7 @@ final class BSTransitioningDelegate: NSObject, UIViewControllerTransitioningDele
             presentedViewController: presented,
             presenting: presenting ?? source
         )
+        presentationController.sheetSize = sheetSize
         return presentationController
     }
 

@@ -30,7 +30,7 @@ final class ThirdContentTableViewCell: UITableViewCell {
     }
     
     func configureWith(image: UIImage, title: String) {
-        imageView?.image = image
+        iconImageView.image = image
         label.text = title
     }
     
@@ -43,16 +43,14 @@ final class ThirdContentTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            iconImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            iconImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             iconImageView.heightAnchor.constraint(equalToConstant: 32),
             iconImageView.widthAnchor.constraint(equalToConstant: 32),
             
             label.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 8),
             label.topAnchor.constraint(equalTo: contentView.topAnchor),
             label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            label.heightAnchor.constraint(equalToConstant: 64)
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }

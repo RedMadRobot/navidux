@@ -46,8 +46,8 @@ final class ThirdContentViewController: ViewController {
         return tableView
     }()
         
-    init() {
-        super.init()
+    init(coordinator: Coordinator?) {
+        super.init(title: "Third", coordinator: coordinator)
     }
     
     required init?(coder: NSCoder) { nil }
@@ -100,12 +100,12 @@ extension ThirdContentViewController: UITableViewDelegate {
 
 struct ThirdContent: Module {
     func assembly(using coordinator: Coordinator) -> any NavigationScreen {
-        return ThirdContentViewController()
+        ThirdContentViewController(coordinator: coordinator)
     }
 }
 
 extension Module where Self == ThirdContent {
     static var third: Self {
-        return ThirdContent()
+        ThirdContent()
     }
 }
