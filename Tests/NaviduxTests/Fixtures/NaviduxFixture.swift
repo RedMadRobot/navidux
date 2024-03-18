@@ -8,7 +8,7 @@ struct NaviduxFixture {
         coordinator: Coordinator? = nil,
         tag: String = NaviduxFixture.mockScreenTag,
         output: ((NullablePayload) -> Void)? = nil
-    ) -> any NavigationScreen {
+    ) -> any NavigationScreenOld {
         return ViewController(
             coordinator: coordinator,
             tag: tag,

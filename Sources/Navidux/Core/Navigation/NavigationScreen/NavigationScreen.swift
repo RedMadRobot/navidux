@@ -1,7 +1,7 @@
 import UIKit
 
 /// Main element of Navigation on Redux (Navidux). Uses for store/move screens in navigation stack.
-public protocol NavigationScreen: UIViewController, AnyObject, Equatable {
+public protocol NavigationScreenOld: UIViewController, AnyObject, Equatable {
     /// - **tag**: The unique tag of the screen. Use for search in nav stack. Can be set on screen setup.
     var tag: String { get set }
     /// - **isModal**: property indicates that screen will be present as modal or not. Edited only from NavigationRouter.
@@ -19,7 +19,23 @@ public protocol NavigationScreen: UIViewController, AnyObject, Equatable {
     var output: ((NullablePayload) -> Void) { get }
 }
 
+public protocol NavigationScreen: UIViewController, Equatable {
+    var id: String { get }
+}
+
 extension NavigationScreen {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
+extension UIViewController: NavigationScreen {
+    public var id: String {
+        return "\(String(describing: Self.self)) \(self.hashValue)"
+    }
+}
+
+extension NavigationScreenOld {
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.tag == rhs.tag
     }

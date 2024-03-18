@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 public final class HostingController<ViewContent: View>: UIHostingController<ViewContent>,
-                                                  NavigationScreen,
+                                                  NavigationScreenOld,
                                                   DismissCheckable,
                                                   UIGestureRecognizerDelegate {
     

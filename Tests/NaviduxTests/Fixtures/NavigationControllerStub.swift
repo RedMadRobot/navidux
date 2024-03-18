@@ -14,12 +14,12 @@ enum NavigationControllerCallingMethods: Equatable {
     case setViewControllers
 }
 
-final class NavigationControllerStub: NavigationController {
+final class NavigationControllerStub: NavigationControllerOld {
     var callingStack: [NavigationControllerCallingMethods] = []
     
-    var screens: [any NavigationScreen] = []
+    var screens: [any NavigationScreenOld] = []
 
-    var topScreen: (any NavigationScreen)? {
+    var topScreen: (any NavigationScreenOld)? {
         screens.last
     }
     
@@ -34,7 +34,7 @@ final class NavigationControllerStub: NavigationController {
         callingStack.append(.setViewControllers)
     }
     
-    func addToStack(screen: any NavigationScreen) {
+    func addToStack(screen: any NavigationScreenOld) {
         screens.append(screen)
         callingStack.append(.addToStack(tag: screen.tag))
     }
@@ -44,17 +44,17 @@ final class NavigationControllerStub: NavigationController {
         callingStack.append(.removeLastFromStack)
     }
 
-    func removeTillFromStack(screen: any NavigationScreen) {
+    func removeTillFromStack(screen: any NavigationScreenOld) {
         callingStack.append(.removeTillFromStack(tag: screen.tag))
     }
 
-    func rebuildNavStack(with screens: [any NavigationScreen]) {
+    func rebuildNavStack(with screens: [any NavigationScreenOld]) {
         self.screens = screens
         callingStack.append(.rebuildNavStack(tags: screens.map { $0.tag }))
     }
     
     func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        let vcTag = (viewController as? (any NavigationScreen))?.tag
+        let vcTag = (viewController as? (any NavigationScreenOld))?.tag
         callingStack.append(.pushViewController(tag: vcTag))
     }
     
@@ -66,13 +66,13 @@ final class NavigationControllerStub: NavigationController {
     
     @discardableResult
     func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
-        let vcTag = (viewController as? (any NavigationScreen))?.tag
+        let vcTag = (viewController as? (any NavigationScreenOld))?.tag
         callingStack.append(.popToViewController(tag: vcTag))
         return nil
     }
     
     func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
-        let vcTag = (viewControllerToPresent as? (any NavigationScreen))?.tag
+        let vcTag = (viewControllerToPresent as? (any NavigationScreenOld))?.tag
         callingStack.append(.present(tag: vcTag))
     }
     

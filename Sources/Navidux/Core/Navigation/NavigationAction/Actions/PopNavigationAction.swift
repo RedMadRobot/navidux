@@ -8,37 +8,43 @@
 import UIKit
 
 public struct PopNavigationAction: NavigationAction {
-    private let screenClass: UIViewController.Type?
-    private let animated: Bool
+    public enum ScreenKind {
+        case screen(any NavigationScreen)
+        case type(any NavigationScreen.Type)
+    }
     
-    init(screenClass: UIViewController.Type?, animated: Bool) {
-        self.screenClass = screenClass
+    private let screenKind: ScreenKind?
+    private let animated: Bool
+    private let completion: (() -> Void)?
+    
+    init(screenKind: ScreenKind?, animated: Bool, completion: (() -> Void)?) {
+        self.screenKind = screenKind
         self.animated = animated
+        self.completion = completion
     }
     
     public func perform(on coordinator: Coordinator) {
-        guard
-            let screenClass,
-            let screen = coordinator.navigationController.screens.last(where: { $0.isKind(of: screenClass) })
-        else {
-            coordinator.navigationController.popViewController(animated: self.animated)
-            return
+        switch self.screenKind {
+        case .screen(let screen):
+            coordinator.navigationController.popTo(screen: screen, animated: self.animated, completion: self.completion)
+        case .type(let type):
+            coordinator.navigationController.popTo(type, animated: self.animated, completion: self.completion)
+        case .none:
+            coordinator.navigationController.pop(animated: self.animated, completion: self.completion)
         }
-        
-        coordinator.navigationController.popToViewController(screen, animated: self.animated)
     }
 }
 
 public extension NavigationAction where Self == PopNavigationAction {
     static var pop: Self {
-        return PopNavigationAction(screenClass: nil, animated: true)
+        return PopNavigationAction(screenKind: nil, animated: true, completion: nil)
     }
     
-    static func pop(animated: Bool) -> Self {
-        return PopNavigationAction(screenClass: nil, animated: animated)
+    static func pop(animated: Bool, completion: (() -> Void)? = nil) -> Self {
+        return PopNavigationAction(screenKind: nil, animated: animated, completion: completion)
     }
     
-    static func popTo(_ screenClass: UIViewController.Type, animated: Bool = true) -> Self {
-        return PopNavigationAction(screenClass: screenClass, animated: animated)
+    static func popTo(_ screenType: Self.ScreenKind, animated: Bool = true, completion: (() -> Void)? = nil) -> Self {
+        return PopNavigationAction(screenKind: screenType, animated: animated, completion: completion)
     }
 }

@@ -1,7 +1,7 @@
 import UIKit
 
 open class ViewController: UIViewController,
-                           NavigationScreen,
+                           NavigationScreenOld,
                            DismissCheckable,
                            UIGestureRecognizerDelegate {
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public final class ActivityViewController: UIActivityViewController, NavigationScreen {
+public final class ActivityViewController: UIActivityViewController, NavigationScreenOld {
     
     // MARK: - Public properties
     

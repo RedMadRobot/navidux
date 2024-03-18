@@ -10,32 +10,35 @@ import Foundation
 public struct PushNavigationAction: NavigationAction {
     public enum PresentationStyle {
         case fullScreen
-        case modal(completion: (() -> Void)?)
+        case modal
     }
     
     private let module: Module
     private let presentationStyle: PresentationStyle
     private let animated: Bool
+    private let completion: (() -> Void)?
     
-    init(module: Module, presentationStyle: PresentationStyle, animated: Bool) {
+    init(module: Module, presentationStyle: PresentationStyle, animated: Bool, completion: (() -> Void)?) {
         self.module = module
         self.presentationStyle = presentationStyle
         self.animated = animated
+        self.completion = completion
     }
     
     public func perform(on coordinator: Coordinator) {
         let screen = self.module.assembly(using: coordinator)
+        
         switch self.presentationStyle {
         case .fullScreen:
-            coordinator.navigationController.pushViewController(screen, animated: self.animated)
-        case .modal(let completion):
-            coordinator.navigationController.present(screen, animated: self.animated, completion: completion)
+            coordinator.navigationController.push(screen: screen, animated: self.animated, isModal: false, completion: self.completion)
+        case .modal:
+            coordinator.navigationController.push(screen: screen, animated: self.animated, isModal: true, completion: self.completion)
         }
     }
 }
 
 public extension NavigationAction where Self == PushNavigationAction {
-    static func push(_ module: Module, as presentationStyle: Self.PresentationStyle = .fullScreen, animated: Bool = true) -> Self {
-        return PushNavigationAction(module: module, presentationStyle: presentationStyle, animated: animated)
+    static func push(_ module: Module, as presentationStyle: Self.PresentationStyle = .fullScreen, animated: Bool = true, completion: (() -> Void)?) -> Self {
+        return PushNavigationAction(module: module, presentationStyle: presentationStyle, animated: animated, completion: completion)
     }
 }
