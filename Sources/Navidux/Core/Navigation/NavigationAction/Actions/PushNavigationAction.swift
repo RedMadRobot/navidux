@@ -13,12 +13,12 @@ public struct PushNavigationAction: NavigationAction {
         case modal
     }
     
-    private let module: Module
+    private let module: any Module
     private let presentationStyle: PresentationStyle
     private let animated: Bool
     private let completion: (() -> Void)?
     
-    init(module: Module, presentationStyle: PresentationStyle, animated: Bool, completion: (() -> Void)?) {
+    init(module: any Module, presentationStyle: PresentationStyle, animated: Bool, completion: (() -> Void)?) {
         self.module = module
         self.presentationStyle = presentationStyle
         self.animated = animated
@@ -38,7 +38,7 @@ public struct PushNavigationAction: NavigationAction {
 }
 
 public extension NavigationAction where Self == PushNavigationAction {
-    static func push(_ module: Module, as presentationStyle: Self.PresentationStyle = .fullScreen, animated: Bool = true, completion: (() -> Void)?) -> Self {
+    static func push(_ module: any Module, as presentationStyle: Self.PresentationStyle = .fullScreen, animated: Bool = true, completion: (() -> Void)?) -> Self {
         return PushNavigationAction(module: module, presentationStyle: presentationStyle, animated: animated, completion: completion)
     }
 }

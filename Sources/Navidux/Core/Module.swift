@@ -8,5 +8,7 @@
 import UIKit
 
 public protocol Module {
-    func assembly(using coordinator: Coordinator) -> any NavigationScreen
+    associatedtype Screen: NavigationScreen
+    
+    func assembly(using coordinator: Coordinator) -> Screen
 }

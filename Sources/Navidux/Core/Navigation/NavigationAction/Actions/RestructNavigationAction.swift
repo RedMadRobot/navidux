@@ -8,9 +8,9 @@
 import UIKit
 
 public struct RestructNavigationAction: NavigationAction {
-    private let modules: [Module]
+    private let modules: [any Module]
     
-    init(modules: [Module]) {
+    init(modules: [any Module]) {
         self.modules = modules
     }
     
@@ -21,7 +21,7 @@ public struct RestructNavigationAction: NavigationAction {
 }
 
 public extension NavigationAction where Self == RestructNavigationAction {
-    static func restruct(with modules: [Module]) -> Self {
+    static func restruct(with modules: [any Module]) -> Self {
         return RestructNavigationAction(modules: modules)
     }
 }

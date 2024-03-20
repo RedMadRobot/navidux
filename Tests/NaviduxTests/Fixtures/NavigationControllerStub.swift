@@ -14,7 +14,7 @@ enum NavigationControllerCallingMethods: Equatable {
     case setViewControllers
 }
 
-final class NavigationControllerStub: NavigationControllerOld {
+final class NavigationControllerStub {
     var callingStack: [NavigationControllerCallingMethods] = []
     
     var screens: [any NavigationScreenOld] = []
