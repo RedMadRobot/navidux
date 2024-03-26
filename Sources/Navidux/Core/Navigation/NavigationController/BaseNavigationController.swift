@@ -24,13 +24,14 @@ public final class BaseNavigationController: UINavigationController, NavigationC
         self.setViewControllers(stack, animated: true)
     }
     
-    public func push(screen: any NavigationScreen, animated: Bool, isModal: Bool, completion: (() -> Void)?) {
+    public func push(screen: any NavigationScreen, animated: Bool, completion: (() -> Void)?) {
         self.stack.insert(screen, at: 0)
         
-        if isModal {
-            self.present(screen, animated: animated, completion: completion)
-        } else {
+        switch screen.presentationStyle {
+        case .fullScreen:
             self.pushViewController(screen, animated: animated, completion: completion)
+        case .modal:
+            self.present(screen, animated: animated, completion: completion)
         }
     }
     

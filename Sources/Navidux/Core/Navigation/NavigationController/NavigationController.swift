@@ -5,7 +5,7 @@ public protocol NavigationController {
     
     func set(stack: [any NavigationScreen])
     
-    func push(screen: any NavigationScreen, animated: Bool, isModal: Bool, completion: (() -> Void)?)
+    func push(screen: any NavigationScreen, animated: Bool, completion: (() -> Void)?)
     
     @discardableResult
     func pop(animated: Bool, completion: (() -> Void)?) -> any NavigationScreen

@@ -8,37 +8,24 @@
 import Foundation
 
 public struct PushNavigationAction: NavigationAction {
-    public enum PresentationStyle {
-        case fullScreen
-        case modal
-    }
-    
     private let module: any Module
-    private let presentationStyle: PresentationStyle
     private let animated: Bool
     private let completion: (() -> Void)?
     
-    init(module: any Module, presentationStyle: PresentationStyle, animated: Bool, completion: (() -> Void)?) {
+    init(module: any Module, animated: Bool, completion: (() -> Void)?) {
         self.module = module
-        self.presentationStyle = presentationStyle
         self.animated = animated
         self.completion = completion
     }
     
     public func perform(on coordinator: Coordinator) {
         let screen = self.module.assembly(using: coordinator)
-        
-        switch self.presentationStyle {
-        case .fullScreen:
-            coordinator.navigationController.push(screen: screen, animated: self.animated, isModal: false, completion: self.completion)
-        case .modal:
-            coordinator.navigationController.push(screen: screen, animated: self.animated, isModal: true, completion: self.completion)
-        }
+        coordinator.navigationController.push(screen: screen, animated: self.animated, completion: self.completion)
     }
 }
 
 public extension NavigationAction where Self == PushNavigationAction {
-    static func push(_ module: any Module, as presentationStyle: Self.PresentationStyle = .fullScreen, animated: Bool = true, completion: (() -> Void)?) -> Self {
-        return PushNavigationAction(module: module, presentationStyle: presentationStyle, animated: animated, completion: completion)
+    static func push(_ module: any Module, animated: Bool = true, completion: (() -> Void)?) -> Self {
+        return PushNavigationAction(module: module, animated: animated, completion: completion)
     }
 }
