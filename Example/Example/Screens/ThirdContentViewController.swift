@@ -8,7 +8,7 @@
 import Navidux
 import UIKit
 
-final class ThirdContentViewController: ViewController {
+final class ThirdContentViewController: UIViewController {
     
     private let dataSource: [ThirdContentCellModel] = [
         .init(image: .actions, title: "Actions"),
@@ -47,7 +47,7 @@ final class ThirdContentViewController: ViewController {
     }()
         
     init() {
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) { nil }
@@ -99,7 +99,7 @@ extension ThirdContentViewController: UITableViewDelegate {
 }
 
 struct ThirdContent: Module {
-    func assembly(using coordinator: Coordinator) -> any NavigationScreen {
+    func assembly(using coordinator: Coordinator) -> ThirdContentViewController {
         return ThirdContentViewController()
     }
 }

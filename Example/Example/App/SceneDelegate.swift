@@ -16,21 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 
-        let navigation = BaseNavigationController { controller in
-            controller.view.backgroundColor = .green
-            controller.navigationBar.isTranslucent = false
-            controller.navigationBar.backgroundColor = .green
-            controller.navigationBar.shadowImage = .init()
-            controller.navigationBar.barTintColor = .green
-            controller.navigationBar.tintColor = .black
-            controller.navigationBar.titleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.black
-            ]
-        }
-        coordinator = .init(navigationController: navigation)
-        coordinator.perform(action: .push(.first, as: .fullScreen))
+        let navigationController = BaseNavigationController()
+        coordinator = .init(navigationController: navigationController)
+        coordinator.perform(action: .push(.first))
         
-        window.rootViewController = navigation
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
         
         self.window = window
