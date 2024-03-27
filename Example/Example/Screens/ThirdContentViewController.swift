@@ -8,7 +8,7 @@
 import Navidux
 import UIKit
 
-final class ThirdContentViewController: ViewController {
+final class ThirdContentViewController: UIViewController {
     
     private let dataSource: [ThirdContentCellModel] = [
         .init(image: .actions, title: "Actions"),
