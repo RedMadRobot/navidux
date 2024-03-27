@@ -25,7 +25,7 @@ public struct PushNavigationAction: NavigationAction {
 }
 
 public extension NavigationAction where Self == PushNavigationAction {
-    static func push(_ module: any Module, animated: Bool = true, completion: (() -> Void)?) -> Self {
+    static func push(_ module: any Module, animated: Bool = true, completion: (() -> Void)? = nil) -> Self {
         return PushNavigationAction(module: module, animated: animated, completion: completion)
     }
 }

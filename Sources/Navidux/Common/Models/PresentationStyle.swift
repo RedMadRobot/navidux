@@ -9,5 +9,5 @@ import UIKit
 
 public enum PresentationStyle {
     case fullScreen
-    case modal(UIModalPresentationStyle)
+    case modal
 }

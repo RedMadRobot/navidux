@@ -47,7 +47,7 @@ final class ThirdContentViewController: UIViewController {
     }()
         
     init() {
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) { nil }
@@ -99,7 +99,7 @@ extension ThirdContentViewController: UITableViewDelegate {
 }
 
 struct ThirdContent: Module {
-    func assembly(using coordinator: Coordinator) -> any NavigationScreen {
+    func assembly(using coordinator: Coordinator) -> ThirdContentViewController {
         return ThirdContentViewController()
     }
 }

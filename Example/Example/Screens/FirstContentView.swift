@@ -12,20 +12,25 @@ struct FirstContentView: View {
             Text("Hello, world!")
             ButtonView(
                 action: { [weak navigation] in
-                    navigation?.perform(action: .push(.second, as: .fullScreen))
+                    navigation?.perform(
+                        action: .push(
+                            .third
+                                .barButton(.init(title: "Text", style: .plain, target: nil, action: nil), at: .right)
+                                .presentationStyle(.fullScreen)
+                        )
+                    )
                 },
                 title: "Open fullscreen second screen"
             )
             .padding(.top, 40)
         }
         .padding()
-        .navigationBarBackButtonHidden()
     }
 }
 
 struct FirstContentModule: Module {
-    func assembly(using coordinator: Coordinator) -> any NavigationScreen {
-        return HostingController(rootView: FirstContentView(navigation: coordinator))
+    func assembly(using coordinator: Coordinator) -> UIViewController {
+        return UIHostingController(rootView: FirstContentView(navigation: coordinator))
     }
 }
 
