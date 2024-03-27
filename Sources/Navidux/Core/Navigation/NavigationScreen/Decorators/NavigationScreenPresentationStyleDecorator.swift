@@ -19,3 +19,9 @@ public struct NavigationScreenPresentationStyleDecorator<Screen: UIViewControlle
         return screen
     }
 }
+
+public extension Module {
+    func presentationStyle(_ presentationStyle: PresentationStyle) -> any Module {
+        return self.decorated(by: NavigationScreenPresentationStyleDecorator(presentationStyle: presentationStyle))
+    }
+}
